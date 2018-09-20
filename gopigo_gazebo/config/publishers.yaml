@@ -1,0 +1,7 @@
+publishers:
+  robot_state:
+    topic: gopigo_state
+    queue_size: 10
+  joint_state:
+    topic: gopigo_joints
+    queue_size: 10

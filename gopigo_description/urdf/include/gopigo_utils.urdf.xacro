@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<robot name="gopigo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Import shared components -->
+    <xacro:include filename="$(find gopigo_description)/urdf/include/gopigo_plugin.gazebo.xacro"/>
+  
+  <!-- Math constants -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <!-- Contact model -->
+  <xacro:property name="kp" value="1000000.0"/>
+  <xacro:property name="kd" value="100.0"/>
+  <xacro:property name="mu" value="0.8"/>
+
+  <!-- Material for the visual primitives -->
+  <material name="gopigo_material" >
+    <color rgba="$(arg material_color_rgba)"/>
+  </material>
+
+</robot>

@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<robot name="overhead_camera" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="black"><color rgba="0.15 0.15 0.15 1.0" /></material>
+  <material name="white"><color rgba="1.0 1.0 1.0 1.0" /></material>
+
+  <!-- Camera plugin -->
+  <xacro:include filename="$(find cri_efe_description)/urdf/include/camera.gazebo.xacro" />
+
+  <xacro:property name="pole_thickness"         value= "0.05"/> <!-- [m] -->
+  <xacro:property name="pole_height"         value= "1.5"/> <!-- [m] -->
+  <xacro:property name="vpole_height"         value= "1.5"/> <!-- [m] -->
+  <xacro:property name="camera_w"         value= "0.1"/> <!-- [m] -->
+  <xacro:property name="camera_l"         value= "0.1"/> <!-- [m] -->
+  <xacro:property name="camera_h"         value= "0.5"/> <!-- [m] -->
+
+
+  <link name="camera_base"></link>
+  <!-- Camera link -->
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 ${-vpole_height} 0" rpy="0 0 0" />
+    <parent link="camera_base"/>
+    <child link="camera_base_link" />
+  </joint>
+
+  <link name="camera_base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.5 0.5 0.0001"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.5 0.5 0.0001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="100000"/>
+      <inertia ixx="100000"  ixy="0"  ixz="0" iyy="100000" iyz="0" izz="100000" />
+    </inertial>
+  </link>
+  <joint name="base_pole_joint" type="fixed">
+    <origin xyz="0 0 ${pole_height/2}" rpy="0 0 0" />
+    <parent link="camera_base_link"/>
+    <child link="pole" />
+  </joint>
+
+  <link name="pole">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${pole_thickness} ${pole_thickness} ${pole_height}"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 ${pole_height}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1000"/>
+      <inertia ixx="1000"  ixy="0"  ixz="0" iyy="1000" iyz="0" izz="1000" />
+    </inertial>
+  </link>
+
+
+  <joint name="base_vpole_joint" type="fixed">
+    <origin xyz="0 ${vpole_height/2} ${pole_height/2}" rpy="1.57 0 0" />
+    <parent link="pole"/>
+    <child link="v_pole" />
+  </joint>
+
+  <link name="v_pole">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${pole_thickness} ${pole_thickness} ${vpole_height}"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 ${vpole_height}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="0.00001"  ixy="0"  ixz="0" iyy="0.00001" iyz="0" izz="0.00001" />
+    </inertial>
+  </link>
+
+
+  <!-- Camera link -->
+  <joint name="camera_top_joint" type="revolute">
+    <origin xyz="0 0 ${-vpole_height/2}" rpy="0 0 -1.57" />
+    <parent link="v_pole"/>
+    <child link="camera_link" />
+    <limit upper="0.1" lower="-0.1" velocity="0.1" effort="1"/>
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${camera_w} ${camera_l} ${camera_h}"/>
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${camera_w} ${camera_l} ${camera_h}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="0.001"  ixy="0"  ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
+  </link>
+
+  <gazebo reference="camera_link" >
+      <material>Gazebo/Black</material>
+  </gazebo>
+</robot>

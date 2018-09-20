@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_0.urdf.xacro"/>
+
+  <!-- Base -->
+  <xacro:macro name="gopigo_base"  params="name **properties">
+
+    <!-- Xacro:Properties-->
+    <xacro:insert_block name="properties"/>
+
+
+    <!-- Attach the robot to the world link if requested -->
+    <xacro:if value="$(arg fixed)">
+      <gazebo>
+        <joint name="world_joint" type="fixed">
+          <parent>${name}</parent>
+          <child>world</child>
+        </joint>
+      </gazebo>
+    </xacro:if>
+
+    <!-- Base link -->
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${L} ${W} ${H}" />
+        </geometry>
+        <material name="gopigo_material" />
+      </visual>
+      <collision> <!-- Main Body -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${L} ${W} ${H}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${name}_to_dummy_wheel_front" type="fixed">
+      <parent link="${name}"/>
+      <child link="dummy_wheel_front"/>
+      <origin xyz="0.10 0 -0.05" rpy="0 0 0"/>
+    </joint>
+    <link name="dummy_wheel_front">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere  radius="0.02" />
+        </geometry>
+        <material name="gopigo_material" />
+      </visual>
+      <collision> <!-- Main Body -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere  radius="0.02" />
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="dummy_wheel_front" >
+    	<kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+        <fdir1 value="1 0 0"/>
+        <minDepth> 0.001 </minDepth>
+        <maxVel>100.0</maxVel>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+
+    <!-- Fixed joint to add dummy inertia link -->
+    <joint name="${name}_to_${name}_inertia" type="fixed">
+      <parent link="${name}"/>
+      <child link="${name}_inertia"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Dummy inertia link, because KDL cannot have inertia on the base link -->
+    <link name="${name}_inertia">
+      <inertial>
+        <origin   xyz="0 0 0"
+                  rpy="0 0 0"/>
+        <mass     value="${m_B}"/>
+        <inertia  ixx="${B_Ixx_B}" ixy="${B_Ixy_B}" ixz="${B_Ixz_B}"
+                  iyy="${B_Iyy_B}" iyz="${B_Iyz_B}" izz="${B_Izz_B}"/>
+      </inertial>
+    </link>
+
+    <xacro:marker_0 name="marker0" pad_base="base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1"/>
+
+  </xacro:macro>
+
+
+
+</robot>

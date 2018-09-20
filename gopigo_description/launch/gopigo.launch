@@ -1,0 +1,52 @@
+<launch>
+  <arg name="robot_namespace"   default="gopigo_0000"/>
+  <arg name="simulation"        default="true"/>
+  <arg name="debug"             default="true"/>
+
+  <arg name="camera_name"    default="$(arg robot_namespace)_camera"/>
+  <arg name="camera_frame"    default="$(arg robot_namespace)_camera_link_optical"/>
+  <arg name="image_name"    default="image_raw"/>
+
+  <arg name="x"             default="0.0"/>
+  <arg name="y"             default="0.0"/>
+  <arg name="z"             default="0.2"/>
+
+  <arg name="urdf_description"  default="$(find gopigo_description)/urdf/gopigo.urdf.xacro"/>
+
+  <!--arg name="config"            default="$(optenv RIDGEBACK_CONFIG dual_hokuyo_lasers)" /-->
+  <group if="$(arg simulation)">
+    <rosparam command="load"  ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/parameters_sim.yaml"/>
+  </group>
+  <group unless="$(arg simulation)">
+    <rosparam command="load"  ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/parameters_real.yaml"/>
+  </group>
+  <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/publishers.yaml"/>
+  <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/services.yaml"/>
+  <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/subscribers.yaml"/>
+
+
+  <group ns="$(arg robot_namespace)">
+
+    <param name="robot_description"
+           command="$(find xacro)/xacro $(arg urdf_description)
+                    simulation:=$(arg simulation)
+                    robot_name:=$(arg robot_namespace)
+                    --inorder "/>
+
+
+    <!-- Robot State Publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    </node>
+
+    <!-- SPAWNER -->
+    <node name="spawner_robot" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args=" -param robot_description
+                 -urdf
+                 -model $(arg robot_namespace)
+                 -x $(arg x)
+                 -y $(arg y)
+                 -z $(arg z)" />
+  </group>
+
+
+</launch>

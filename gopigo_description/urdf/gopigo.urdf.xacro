@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<!-- This file contains the description of the gopigo robot. -->
+
+<robot name="gopigo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Arguments -->
+  <xacro:arg name="robot_name"          default="gopigo0000"/>
+  <xacro:arg name="simulation"          default="true"/>
+  <xacro:arg name="fixed"               default="false"/>
+  <xacro:arg name="material_color_rgba" default="0.7 0.7 0.7 1.0"/>
+  <xacro:arg name="simulate_using_gpu"  default="true"/>
+
+  <!-- Component versions -->
+  <xacro:property name="base_version"    value="0_0_0"/>
+
+  <!-- Includes -->
+  <xacro:include filename="$(find gopigo_description)/urdf/include/gopigo_utils.urdf.xacro"/>
+
+  <xacro:include filename="$(find gopigo_description)/urdf/base/${base_version}/gopigo_base.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel.urdf.xacro"/>
+
+  <!-- Base -->
+  <xacro:gopigo_base name="base">
+    <properties>
+      <xacro:include filename="$(find gopigo_description)/urdf/base/${base_version}/gopigo_base_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:gopigo_base>
+
+  <!-- Left components -->
+  <xacro:wheel leg="L">
+    <properties>
+      <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:wheel>
+
+  <!-- Right components -->
+  <xacro:wheel leg="R">
+    <properties>
+      <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel_parameters.urdf.xacro"/>
+    </properties>
+  </xacro:wheel>
+
+
+</robot>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="m_B"                value= "0.1"/> <!-- [kg] -->
+  <xacro:property name="B_Ixx_B"            value= "0.001"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Iyy_B"            value= "0.001"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Izz_B"            value= "0.001"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Ixy_B"            value= "0.0000"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Ixz_B"            value="-0.0000"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Iyz_B"            value="-0.000"/> <!-- [kg * m^2] -->
+  <xacro:property name="L"   value= "0.2"/> <!-- [m] -->
+  <xacro:property name="W"   value= "0.1"/> <!-- [m] -->
+  <xacro:property name="H"   value= "0.1"/> <!-- [m] -->
+
+
+</robot>

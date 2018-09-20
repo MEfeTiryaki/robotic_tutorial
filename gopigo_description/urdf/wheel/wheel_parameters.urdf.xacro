@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="r_wheel"                value= "0.05"/> <!-- [m] -->
+  <xacro:property name="w_wheel"                value= "0.02"/> <!-- [m] -->
+  <xacro:property name="m_wheel"                value= "0.01"/> <!-- [kg] -->
+  <xacro:property name="x_wheel"                value= "0.1"/> <!-- m -->
+  <xacro:property name="y_wheel"                value= "0.06"/> <!-- m -->
+  <xacro:property name="z_wheel"                value= "-0.02"/> <!-- m -->
+
+  <xacro:property name="B_Ixx_wheel"            value= "0.00001"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Iyy_wheel"            value= "0.00001"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Izz_wheel"            value= "0.0010"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Ixy_wheel"            value= "0.0000"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Ixz_wheel"            value= "0.0000"/> <!-- [kg * m^2] -->
+  <xacro:property name="B_Iyz_wheel"            value= "0.000"/> <!-- [kg * m^2] -->
+
+  <xacro:property name="kp_wheel"            value= "1000000.0" />
+  <xacro:property name="kd_wheel"            value= "100.0" />
+  <xacro:property name="mu_wheel"            value= "1" />
+  <xacro:property name="wheel_minDepth"      value= "0.001" /> <!-- [m] -->
+
+</robot>

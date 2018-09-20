@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <arg name="robot_name" default="gopigo0000"/>
+  <!-- Set true for simulation of gopigo in Gazebo -->
+  <arg name="simulation" default="true"/>
+  <!-- Set true to simulate sensors without noise and bias -->
+  <arg name="perfect_sensors" default="true"/>
+  <!-- Set true to fix the base of gopigo in simulation -->
+  <arg name="fixed" default="false"/>
+  <!-- Give the robot description parameter a name -->
+  <arg name="description_name" default="gopigo_description"/>
+  <!-- Set robot description path -->
+  <arg name="description_file" default="$(find gopigo_description)/urdf/gopigo.urdf.xacro"/>
+  <!-- Set true to draw the meshes -->
+  <arg name="mesh" default="false"/>
+  <!-- Set the material color -->
+  <arg name="material_color_rgba" default="0.7 0.7 0.7 1.0"/>
+
+  <!-- Run xacro script to generate gopigo description -->
+  <param name="$(arg description_name)" command="$(find xacro)/xacro --inorder
+    robot_name:=$(arg robot_name)
+    $(arg description_file)
+    simulation:=$(arg simulation)
+    perfect_sensors:=$(arg perfect_sensors)
+    fixed:=$(arg fixed)
+    material_color_rgba:='$(arg material_color_rgba)'"/>
+
+</launch>

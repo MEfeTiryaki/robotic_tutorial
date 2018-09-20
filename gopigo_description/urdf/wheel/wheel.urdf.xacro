@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Wheel -->
+  <xacro:macro name="wheel"  params="leg **properties">
+
+    <!-- Xacro:Properties-->
+    <xacro:insert_block name="properties"/>
+
+    <xacro:property name="left"  value="${int(leg.startswith('L'))*2-1}"/>
+    <xacro:property name="front" value="${int(leg.startswith('F', 1))*2-1}"/>
+
+    <!-- Wheel link -->
+    <link name="${leg}_WHEEL">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${w_wheel}" radius="${r_wheel}" />
+        </geometry>
+        <material name="gopigo_material" />
+      </visual>
+      <collision> <!-- Main Body -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${w_wheel}" radius="${r_wheel}" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin   xyz="0 0 0"
+                  rpy="0 0 0"/>
+        <mass     value="${m_wheel}"/>
+        <inertia  ixx="${B_Ixx_wheel}" ixy="${B_Ixy_wheel}" ixz="${B_Ixz_wheel}"
+                  iyy="${B_Iyy_wheel}" iyz="${B_Iyz_wheel}" izz="${B_Izz_wheel}"/>
+      </inertial>
+    </link>
+
+    <joint name="${leg}_WH" type="continuous">
+      <parent link="base"/>
+      <child link="${leg}_WHEEL"/>
+      <origin xyz="${front * x_wheel} ${left * y_wheel} ${z_wheel}" rpy="${PI/2} 0 0"/>
+      <axis xyz="0 0 1" />
+    </joint>
+
+
+    <gazebo reference="${leg}_WH" >
+    	<kp>${kp_wheel}</kp>
+        <kd>${kd_wheel}</kd>
+        <mu1>${mu_wheel}</mu1>
+        <mu2>${mu_wheel}</mu2>
+        <fdir1 value="1 0 0"/>
+        <minDepth> ${wheel_minDepth} </minDepth>
+        <maxVel>100.0</maxVel>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

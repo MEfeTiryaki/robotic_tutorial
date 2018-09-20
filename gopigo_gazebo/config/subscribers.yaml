@@ -1,0 +1,5 @@
+subscribers:
+  gopigo:
+    command:
+      topic: cmd_vel
+      queue_size: 1

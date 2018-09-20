@@ -1,0 +1,34 @@
+<launch>
+
+  <arg name="camera_namespace"  default="camera_0001"/>
+  <arg name="simulation"        default="true"/>
+  <arg name="debug"             default="true"/>
+
+  <arg name="description_file"  default="$(find cri_efe_description)/urdf/camera/overhead_camera.urdf.xacro" />
+  <arg name="camera_name"        default="overhead_camera"/>
+
+  <group ns="$(arg camera_namespace)">
+    <param name="camera_description"
+       command="$(find xacro)/xacro --inorder $(arg description_file)" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+      <param name="use_gui"                   value="false"/>
+      <param name="rate"                      value="100"/>
+      <remap from="robot_description"         to="camera_description"/>
+      <remap from="joint_states"              to="/joint_states/camera"/>
+    </node>
+
+    <node name="state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <param name="publish_frequency"         value="100"/>
+      <param name="use_tf_static"             value="true"/>
+      <remap from="robot_description"         to="camera_description"/>
+      <remap from="joint_states"              to="/joint_states/camera"/>
+    </node>
+
+    <!-- SPAWNER-->
+    <node name="spawner_camera" pkg="gazebo_ros" type="spawn_model" respawn="false"
+       args="-urdf -model $(arg camera_namespace) -param camera_description -x 0 -y 0 -z 0.0" />
+
+  </group>
+
+</launch>

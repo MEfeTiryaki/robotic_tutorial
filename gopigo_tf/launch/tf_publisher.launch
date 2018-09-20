@@ -1,0 +1,24 @@
+<launch>
+
+    <!-- LAUNCH PARAMETERS-->
+    <arg name="node_name"  default="tf_publisher"/>
+    <arg name="debug"  default="false"/>
+    <arg name="simulation"  default="true"/>
+    <arg name="frequency"  default="100"/>
+
+
+    <!-- LOAD PARAMETER FILES -->
+    <group if="$(arg simulation)">
+      <rosparam command="load" ns="$(arg node_name)" file="$(find gopigo_sim)/config/tf/tf_sim.yaml"/>
+    </group>
+    <group unless="$(arg simulation)">
+      <rosparam command="load" ns="$(arg node_name)" file="$(find gopigo_sim)/config/tf/tf_real.yaml"/>
+    </group>
+
+    <node pkg="gopigo_tf" name="$(arg node_name)" type="main.py" output="screen">
+      <param name="debug" value="$(arg debug)"/>
+      <param name="frequency" value="$(arg frequency)"/>
+    </node>
+
+  
+</launch>

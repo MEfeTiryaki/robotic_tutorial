@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- RViz file configuration -->
+  <arg name="rviz_config_path"/>
+  <!-- Path to the RViz world  -->
+  <arg name="rviz_world_path" default=""/>
+  <!-- If RViz should subscribe to /tf_minimal instead of /tf -->
+  <arg name="tf_minimal" default="false"/>
+  <!-- RViz launch prefix -->
+  <arg name="rviz_launch_prefix" default=""/>
+
+  <!-- Launch rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config_path)" output="screen" respawn="true" launch-prefix="$(arg rviz_launch_prefix)">
+    <remap from="/tf" to="/tf_minimal" if="$(arg tf_minimal)"/>
+  </node>
+
+
+
+</launch>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+      <plugin name="gazebo_ros_control"
+        filename="libgopigo_gazebo.so">
+        <robot_name>$(arg robot_name)</robot_name>
+      </plugin>
+    </gazebo>
+</robot>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- Give the robot description parameter a name -->
+  <arg name="robot_namespace"   default="gopigo_0000"/>
+  <arg name="description_name" default="gopigo_description"/>
+  <arg name="x"             default="0.0"/>
+  <arg name="y"             default="0.0"/>
+  <arg name="z"             default="0.01"/>
+  <!-- Set path of robot description -->
+  <arg name="urdf_description"   default="$(find gopigo_description)/urdf/gopigo.urdf.xacro"/>
+  <!-- Enable/disable Gazebo GUI -->
+  <arg name="run_gazebo_gui"                            default="false"/>
+  <!-- rviz configuration -->
+  <arg name="rviz_config_path"                           default="$(find gopigo_description)/launch/rviz/empty.rviz"/>
+
+
+  <arg name="use_sim_time" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="verbose" default="true" />
+
+
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="0" />
+    <arg name="gui" value="$(arg run_gazebo_gui)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="paused" value="false"/>
+    <arg name="verbose"       value="$(arg verbose)"/>
+  </include>
+
+
+  <!-- RVIZ -->
+  <include file="$(find cri_efe_description)/launch/rviz/rviz.launch">
+    <arg name="fixed_frame"      value="base"/>
+    <arg name="rviz_config_path"  value="$(arg rviz_config_path)"/>
+  </include>
+
+  <group ns="$(arg robot_namespace)">
+    <param name="robot_description"
+           command="$(find xacro)/xacro $(arg urdf_description)
+                    robot_name:=$(arg robot_namespace)
+                    --inorder "/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+      <param name="use_gui"                   value="true"/>
+      <param name="rate"                      value="100"/>
+    </node>
+
+    <!-- Robot State Publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    </node>
+
+    <!-- SPAWNER -->
+    <node name="spawner_robot" pkg="gazebo_ros" type="spawn_model" respawn="false"
+          args=" -param robot_description
+                 -urdf
+                 -model $(arg robot_namespace)
+                 -x $(arg x)
+                 -y $(arg y)
+                 -z $(arg z)" />
+  </group>
+
+</launch>
