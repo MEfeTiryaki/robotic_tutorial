@@ -92,6 +92,27 @@
     </include>
   </group>
 
+  <!-- CAMERA KINECT -->
+  <group unless="$(arg simulation)">
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+      <arg name="publish_tf"        default="false"/>
+      <arg name="base_name_tf"      default="camera_link"/>
+      <arg name="output"    value="log"/>
+    </include>
+  </group>
+
+  <group if="$(arg simulation)">
+    <include file="$(find gopigo_description)/launch/modules/camera.launch"/>
+  </group>
+
+  <!--  Aruco  -->
+  <include file="$(find gopigo_aruco)/launch/any_multi.launch">
+    <arg name="namespace"      value="camera_0001"/>
+    <arg name="camera_name"      value="camera"/>
+    <arg name="camera_frame"     value="camera_link_optical"/>
+    <arg name="image_name"       value="image_raw"/>
+  </include>
+
   <!-- ROBOTS -->
   <include file="$(find gopigo_description)/launch/gopigo.launch">
     <arg name="robot_namespace"    value="gopigo_0001"/>

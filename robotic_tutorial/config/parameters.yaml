@@ -1,0 +1,5 @@
+arm:
+  robot_state_size: 6
+
+humanoid:
+  robot_state_size : 37

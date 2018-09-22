@@ -4,7 +4,7 @@
   <arg name="simulation"        default="true"/>
   <arg name="debug"             default="true"/>
 
-  <arg name="description_file"  default="$(find cri_efe_description)/urdf/camera/overhead_camera.urdf.xacro" />
+  <arg name="description_file"  default="$(find gopigo_description)/urdf/overhead_camera.urdf.xacro" />
   <arg name="camera_name"        default="overhead_camera"/>
 
   <group ns="$(arg camera_namespace)">

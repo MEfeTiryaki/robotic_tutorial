@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/single_markers/marker_0.urdf.xacro"/>
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/single_markers/marker_1.urdf.xacro"/>
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/single_markers/marker_2.urdf.xacro"/>
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/single_markers/marker_3.urdf.xacro"/>
+
+
+  <xacro:property name="m_d"     value= "${0.10+0.1/12}"  /> <!-- [m] -->
+
+
+  <xacro:macro name="quad_marker_0" params="pad_base x y z yaw scale ">
+    <xacro:property name="m_d_x"     value= "${m_d*cos(yaw)}"  /> <!-- [m] -->
+    <xacro:property name="m_d_y"     value= "${m_d*sin(yaw)}"  /> <!-- [m] -->
+
+    <!-- Pad-->
+    <joint name="quad_marker_0_pad_joint" type="fixed">
+      <parent link="${pad_base}"/>
+      <child link="quad_marker_base_0" />
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 ${yaw+3.14}"/>
+    </joint>
+
+    <link name="quad_marker_base_0">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${scale*0.1} ${scale*0.1} ${0.0001}"/>
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+
+    <xacro:marker_2 name="marker2" pad_base="${pad_base}" marker_pos="${x+scale*(-m_d_y/2+m_d_x/2)} ${y+scale*(m_d_x/2+m_d_y/2)} ${z}" marker_ori="0 0 ${yaw+3.14}" scale="${scale}"/>
+
+    <xacro:marker_0 name="marker0" pad_base="${pad_base}" marker_pos="${x+scale*(m_d_y/2+m_d_x/2)} ${y+scale*(-m_d_x/2+m_d_y/2)} ${z}" marker_ori="0 0 ${yaw-3.14}" scale="${scale}"/>
+
+    <xacro:marker_3 name="marker3" pad_base="${pad_base}" marker_pos="${x+scale*(-m_d_y/2-m_d_x/2)} ${y+scale*(m_d_x/2-m_d_y/2)} ${z}" marker_ori="0 0 ${yaw+3.14}" scale="${scale}"/>
+
+    <xacro:marker_1 name="marker1" pad_base="${pad_base}" marker_pos="${x+scale*(m_d_y/2-m_d_x/2)} ${y+scale*(-m_d_x/2-m_d_y/2)} ${z}" marker_ori="0 0 ${yaw+3.14}" scale="${scale}"/>
+
+  </xacro:macro>
+
+</robot>

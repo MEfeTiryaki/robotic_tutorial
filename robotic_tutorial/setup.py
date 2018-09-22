@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-
-packages = ['gopigo_tf']
-package_dir = {'': 'src'}
+packages = ['robotic_tutorial']
+package_dir = {'': 'scripts'}
 try:
 	from distutils.core import setup
 	from catkin_pkg.python_setup import generate_distutils_setup

@@ -1,6 +1,16 @@
-import rospy
-import numpy as np
+'''
+    File name: RosTfPublisher.py
+    Author: Mehmet Efe Tiryaki
+    E-mail: m.efetiryaki@gmail.com
+    Date created: 11.07.2018
+    Date last modified: 11.07.2018
+    Python Version: 2.7
+'''
+import sys
+sys.dont_write_bytecode = True
 
+
+import numpy as np
 from threading import Lock
 import time
 
@@ -8,47 +18,12 @@ from geometry_msgs.msg import PoseStamped
 import tf
 import tf.transformations as tr
 
+import rospy
+from ros_node_base_py.RosExecuterNodeBase import RosExecuterNodeBase
 
-class TfPublisher(object):
-    """
-        This class localizes the robot
-
-        Attributes:
-
-        Services:
-
-        Publishers:
-
-        Subscribers:
-
-    """
-
-
-    def __init__(self,nodeName):
-        self.nodeName_ = nodeName
-
-        # initize class variables
-        self.initilize()
-
-        # Reading parameters
-        self.readParameters()
-        # Setting debug
-        self.debug_ = rospy.DEBUG if self.debug_ else None
-
-        # ROS Node initilization
-        rospy.init_node(self.nodeName_,log_level=self.debug_)
-
-        # init Publisher
-        self.initilizePublishers()
-        # init Subscribers
-        self.initilizeSubscribers()
-        # init Services
-        self.initilizeServices()
-
-        rospy.loginfo("[TfPublisher] : The ROS Node for tf publisher is initilized.")
-        self.execute()
-
-    def initilize(self):
+class RosTfPublisher(RosExecuterNodeBase):
+    def create(self):
+        super(RosExecuterNodeBase,self).create()
         self.tfParent_ = []
         self.tfChild_ = []
         self.tfPosition_ = []
@@ -57,14 +32,6 @@ class TfPublisher(object):
         self.tfSourceQueueSize_ = []
         # Lock for callbacks
         self.lock_ = Lock()
-
-
-    def execute(self):
-        # TODO : Make Parameteric
-        self.rate_ = rospy.Rate(self.frequency_)
-        while not rospy.is_shutdown():
-          self.advance()
-          self.rate_.sleep()
 
     def readParameters(self):
 
@@ -86,16 +53,9 @@ class TfPublisher(object):
             i = i + 1
 
     def initilizePublishers(self):
-        """ Initlize the Publishers
-            Publishers:
-        """
         rospy.loginfo("[TfPublisher] : The Publishers are initilized")
 
     def initilizeSubscribers(self):
-        """ Initlize the Subscriptions
-            Subscribers:
-                markerPositionSubscriber_ : /aruco_single/pose
-        """
         self.poseSubscribers_ = []
         for i in range(0,len(self.tfSourceName_)):
             if self.tfSourceName_[i] != "None":
@@ -108,24 +68,17 @@ class TfPublisher(object):
         rospy.loginfo("[TfPublisher] : The Subscribers are initilized")
 
     def initilizeServices(self):
-        """ Initlize the Services
-            Servises:
-        """
         rospy.loginfo("[TfPublisher] : The Servises are initilized")
 
-    def poseCallback(self,msg,index):
+    def execute(self):
+        self.rate_ = rospy.Rate(self.frequency_)
+        while not rospy.is_shutdown():
+          self.advance()
+          self.rate_.sleep()
+
+    def advance(self):
         with self.lock_:
-            self.tfPosition_[index]     = [0,0,0]
-            self.tfOrientation_[index]  = [0,0,0,0]
-            self.tfPosition_[index][0]     = msg.pose.position.x
-            self.tfPosition_[index][1]     = msg.pose.position.y
-            self.tfPosition_[index][2]     = msg.pose.position.z
-            self.tfOrientation_[index][0]  = msg.pose.orientation.x
-            self.tfOrientation_[index][1]  = msg.pose.orientation.y
-            self.tfOrientation_[index][2]  = msg.pose.orientation.z
-            self.tfOrientation_[index][3]  = msg.pose.orientation.w
-            #print("index :" + str(index))
-            #print("pos : " + str(self.tfPosition_[index]) + "\nori : " + str(self.tfOrientation_[index]) )
+            self.tfPublish()
 
     def tfPublish(self):
         currentTime = rospy.Time.now()
@@ -140,11 +93,16 @@ class TfPublisher(object):
                               self.tfChild_[i],
                               self.tfParent_[i])
 
-    def advance(self):
-        """ Advances the state estimator one step in time
-            Note : For now it waits the input and measurement. But
-                it should also work with out measurement
-
-        """
+    def poseCallback(self,msg,index):
         with self.lock_:
-            self.tfPublish()
+            self.tfPosition_[index]     = [0,0,0]
+            self.tfOrientation_[index]  = [0,0,0,0]
+            self.tfPosition_[index][0]     = msg.pose.position.x
+            self.tfPosition_[index][1]     = msg.pose.position.y
+            self.tfPosition_[index][2]     = msg.pose.position.z
+            self.tfOrientation_[index][0]  = msg.pose.orientation.x
+            self.tfOrientation_[index][1]  = msg.pose.orientation.y
+            self.tfOrientation_[index][2]  = msg.pose.orientation.z
+            self.tfOrientation_[index][3]  = msg.pose.orientation.w
+            #print("index :" + str(index))
+            #print("pos : " + str(self.tfPosition_[index]) + "\nori : " + str(self.tfOrientation_[index]) )

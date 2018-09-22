@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+
+  <xacro:macro name="marker_4" params="name pad_base marker_pos marker_ori scale ">
+    <xacro:property name="marker_thickness"     value= "0.001"  /> <!-- [m] -->
+    <xacro:property name="w_pad"                value= "0.01"   /> <!-- [m] -->
+
+    <xacro:property name="w_background"             value= "0.10"   /> <!-- [m] -->
+    <xacro:property name="h_background"             value= "0.10"   /> <!-- [m] -->
+    <xacro:property name="x_background"             value= "0.0"    /> <!-- [m] -->
+    <xacro:property name="y_background"             value= "0.0"    /> <!-- [m] -->
+
+    <xacro:property name="w_0"                  value= "0.015"  /> <!-- [m] -->
+    <xacro:property name="h_0"                  value= "0.07"   /> <!-- [m] -->
+    <xacro:property name="x_0"                  value= "-0.0275"/> <!--[m] -->
+    <xacro:property name="y_0"                  value= "0.0"    /> <!-- [m] -->
+
+    <xacro:property name="w_1"                  value= "0.04"  /> <!-- [m] -->
+    <xacro:property name="h_1"                  value= "0.015"   /> <!-- [m] -->
+    <xacro:property name="x_1"                  value= "0.015"/> <!--[m] -->
+    <xacro:property name="y_1"                  value= "-0.0125"    /> <!-- [m] -->
+
+    <!-- Pad-->
+    <joint name="${name}_pad_joint" type="fixed">
+      <parent link="${pad_base}"/>
+      <child link="${name}_pad" />
+      <origin xyz="${marker_pos}" rpy="${marker_ori}"/>
+    </joint>
+
+    <link name="${name}_pad">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${scale*(w_background+2*w_pad)} ${scale*(h_background+2*w_pad)} ${marker_thickness}"/>
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+
+    <!-- background-->
+    <joint name="${name}_background_joint" type="fixed">
+      <parent link="${name}_pad"/>
+      <child link="${name}_background" />
+      <origin xyz="${scale*x_background} ${scale*y_background} ${marker_thickness/2}" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${name}_background">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${scale*w_background} ${scale*h_background} ${marker_thickness}"/>
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+    <gazebo reference="${name}_background">
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- Shape 0  -->
+    <joint name="${name}_backgroun_shape_0" type="fixed">
+      <parent link="${name}_background"/>
+      <child link="${name}_shape_0" />
+      <origin xyz="${scale*x_0} ${scale*y_0} ${marker_thickness/2}" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${name}_shape_0">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${scale*w_0} ${scale*h_0} ${marker_thickness}"/>
+        </geometry>
+        <material name="white" />
+      </visual>
+    </link>
+
+    <gazebo reference="${name}_shape_0">
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- Shape 1  -->
+    <joint name="${name}_backgroun_shape_1" type="fixed">
+      <parent link="${name}_background"/>
+      <child link="${name}_shape_1" />
+      <origin xyz="${scale*x_1} ${scale*y_1} ${marker_thickness/2}" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${name}_shape_1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${scale*w_1} ${scale*h_1} ${marker_thickness}"/>
+        </geometry>
+        <material name="white" />
+      </visual>
+    </link>
+
+    <gazebo reference="${name}_shape_1">
+      <material>Gazebo/White</material>
+    </gazebo>
+
+
+
+  </xacro:macro>
+
+</robot>

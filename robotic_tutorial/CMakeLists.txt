@@ -3,8 +3,24 @@ project(robotic_tutorial)
 
 
 find_package(catkin REQUIRED COMPONENTS
+  message_generation
+  std_msgs
 )
 
+add_service_files(
+  FILES
+  Fibonacci.srv
+)
+generate_messages(
+  DEPENDENCIES
+    std_msgs
+)
+catkin_package(
+  CATKIN_DEPENDS
+  message_runtime
+  std_msgs
+)
+catkin_python_setup()
 catkin_package(
   CATKIN_DEPENDS
 )

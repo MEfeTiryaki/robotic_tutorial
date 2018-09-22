@@ -1,0 +1,4 @@
+int8        number
+---
+bool         succeed
+int64       result

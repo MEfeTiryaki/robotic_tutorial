@@ -5,14 +5,17 @@
   <material name="white"><color rgba="1.0 1.0 1.0 1.0" /></material>
 
   <!-- Camera plugin -->
-  <xacro:include filename="$(find cri_efe_description)/urdf/include/camera.gazebo.xacro" />
+  <xacro:include filename="$(find gopigo_description)/urdf/include/camera.gazebo.xacro" />
 
   <xacro:property name="pole_thickness"         value= "0.05"/> <!-- [m] -->
-  <xacro:property name="pole_height"         value= "1.5"/> <!-- [m] -->
-  <xacro:property name="vpole_height"         value= "1.5"/> <!-- [m] -->
+  <xacro:property name="pole_height"         value= "1.0"/> <!-- [m] -->
+  <xacro:property name="vpole_height"         value= "1.0"/> <!-- [m] -->
   <xacro:property name="camera_w"         value= "0.1"/> <!-- [m] -->
   <xacro:property name="camera_l"         value= "0.1"/> <!-- [m] -->
   <xacro:property name="camera_h"         value= "0.5"/> <!-- [m] -->
+  <xacro:property name="lens_x"     value= "0.0"/> <!-- [m] -->
+  <xacro:property name="lens_y"     value= "0.0"/> <!-- [m] -->
+  <xacro:property name="lens_z"     value= "0.0"/> <!-- [m] -->
 
 
   <link name="camera_base"></link>
@@ -127,6 +130,18 @@
       <mass value="0.001"/>
       <inertia ixx="0.001"  ixy="0"  ixz="0" iyy="0.001" iyz="0" izz="0.001" />
     </inertial>
+  </link>
+
+  <joint name="camera_optical_joint" type="fixed">
+    <!-- these values have to be these values otherwise the gazebo camera
+        image won't be aligned properly with the frame it is supposedly
+        originating from -->
+    <origin xyz="${lens_x} ${lens_y} ${lens_z}" rpy="${-pi/2} 0 ${-pi/2}"/>
+    <parent link="camera_link"/>
+    <child link="camera_link_optical"/>
+  </joint>
+
+  <link name="camera_link_optical">
   </link>
 
   <gazebo reference="camera_link" >

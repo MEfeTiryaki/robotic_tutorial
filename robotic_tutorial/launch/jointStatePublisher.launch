@@ -1,0 +1,20 @@
+<launch>
+
+    <arg name="arm"  default="true"/>
+    <arg name="humanoid" default="false"/>
+
+    <group if="$(arg arm)">
+      <rosparam param="robot_state_size"> 6 </rosparam>
+    </group>
+
+    <group if="$(arg humanoid)">
+      <rosparam param="robot_state_size"> 37 </rosparam>
+    </group>
+
+    <node pkg="robotic_tutorial" name="joint_state_publisher" type="jointStatePublisher.py"  output="screen">
+      <!-- REMAP EXAMPLE
+      <remap from="/robotJointStates" to="/cmd_vel"/>
+      -->
+    </node>
+
+</launch>

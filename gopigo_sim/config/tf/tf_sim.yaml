@@ -20,8 +20,15 @@ tf_publisher_2:
   source_topic        : "None"
   source_queue_size   : 0
 tf_publisher_3:
-  parent              : map
-  child               : gopigo_0001/base
+  parent              : odom
+  child               : base
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0 ,1]
+  source_topic        : "None"
+  source_queue_size   : 0
+tf_publisher_4:
+  parent              : camera_link_optical
+  child               : camera_0001/camera_link_optical
   position            : [0 ,0 ,0]
   orientation         : [0 ,0 ,0 ,1]
   source_topic        : "None"
