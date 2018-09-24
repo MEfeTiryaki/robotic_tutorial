@@ -9,8 +9,8 @@ def callback(data):
 
 def receiver():
     rospy.init_node('receiver', anonymous=True)
-    #rospy.Subscriber("message", String, callback)
-    rospy.Subscriber("message", Float64, callback)
+    rospy.Subscriber("message", String, callback)
+    #rospy.Subscriber("message", Float64, callback)
     rospy.spin()
 
 if __name__ == '__main__':
