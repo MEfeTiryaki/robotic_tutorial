@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>turtle_competition</name>
+  <name>turtle_exercise</name>
   <version>0.0.0</version>
   <description>This package to build necessary stuff for robotic_tutorial</description>
 
@@ -11,6 +11,6 @@
 
   <build_depend>message_generation</build_depend>
   <exec_depend>message_runtime</exec_depend>
-  
+
   <buildtool_depend>catkin</buildtool_depend>
 </package>

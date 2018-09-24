@@ -3,12 +3,12 @@
 from turtlesim.srv import TeleportAbsolute
 from turtlesim.msg import Pose
 from std_srvs.srv import Empty
-from turtle_competition.msg import Competition_start
+from turtle_exercise.msg import Exercise_start
 from geometry_msgs.msg import Twist
 import rospy
 import numpy as np
 
-class Competitor:
+class MyTurtle:
     def __init__(self):
         self.isReceived = False
         self.isPlanned = False
@@ -37,8 +37,8 @@ class Competitor:
 
     def initilizeSubscribers(self):
         # TODO : create a subscriber called self.startSubscriber_ which subscribers
-        # 'starter' with type 'Competition_start' and evoke self.start_Callback
-        self.startSubscriber_ = rospy.Subscriber("starter", Competition_start \
+        # 'starter' with type 'Exercise_start' and evoke self.start_Callback
+        self.startSubscriber_ = rospy.Subscriber("starter", Exercise_start \
                 , callback = self.start_Callback )
 
         # TODO : create a subscriber called self.stateSubscriber_ which subscribers
@@ -137,10 +137,9 @@ class Competitor:
         execution_time = rospy.Time.now()
         self.time_from_start = execution_time - self.start_time
         #print(self.time_from_start.to_sec())
-        for i in rang(0,len(self.exe_time)):
-            #print(t,v)
-            if t[i]> self.time_from_start.to_sec():
-                self.publish_vel_vmd(v[i])
+        for i in range(0,len(self.exe_time)):
+            if self.exe_time[i]> self.time_from_start.to_sec():
+                self.publish_vel_vmd(self.vel_cmd[i])
                 return
         # if self.time_from_start greater than all this part runs
         self.isPlanned = False
@@ -157,4 +156,4 @@ class Competitor:
 
 
 if __name__ == "__main__":
-    c = Competitor()
+    t = MyTurtle()

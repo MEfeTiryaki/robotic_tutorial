@@ -11,9 +11,9 @@
 
     <group ns="$(arg namespace)">
       <rosparam command="load" ns=""
-                       file="$(find turtle_competition)/config/parameters.yaml"/>
+                       file="$(find turtle_exercise)/config/parameters.yaml"/>
 
-      <node pkg="turtle_competition" name="$(arg node_name)" type="competition_node.py"  output="screen">
+      <node pkg="turtle_exercise" name="$(arg node_name)" type="exercise_node.py"  output="screen">
       </node>
 
     </group>

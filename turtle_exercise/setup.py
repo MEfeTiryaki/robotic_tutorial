@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-packages = ['turtle_competition']
+packages = ['turtle_exercise']
 package_dir = {'': 'scripts'}
 try:
 	from distutils.core import setup

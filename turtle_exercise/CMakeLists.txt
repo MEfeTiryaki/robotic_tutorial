@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(turtle_competition)
+project(turtle_exercise)
 
 
 find_package(catkin REQUIRED COMPONENTS
@@ -8,8 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
 )
 add_message_files(
   FILES
-  Competition_result.msg
-  Competition_start.msg
+  Exercise_result.msg
+  Exercise_start.msg
 )
 
 catkin_python_setup()
