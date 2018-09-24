@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 import rospy
-from RosTfPublisher import RosTfPublisher
+from ros_tf_publisher_py.RosTfPublisher import RosTfPublisher
 
 
 if __name__ == "__main__":

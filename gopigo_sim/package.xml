@@ -13,6 +13,9 @@
 
   <depend>gopigo_description</depend>
   <depend>gopigo_gazebo</depend>
+  <depend>gopigo_aruco</depend>
+  <depend>gopigo_tf</depend>
+  <depend>ros_node_utils</depend>
   <depend>kinect2_bridge</depend>
 
 

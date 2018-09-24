@@ -15,7 +15,6 @@
   <!-- Launch rviz -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config_path ) -f  $(arg fixed_frame)"  respawn="true" launch-prefix="$(arg rviz_launch_prefix)" output="log">
     <remap from="/tf" to="/tf_minimal" if="$(arg tf_minimal)"/>
-    <rosparam command="load" file="$(find denso_moveit_config)/config/kinematics.yaml"/>
   </node>
 
 
