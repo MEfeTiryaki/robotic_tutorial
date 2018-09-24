@@ -1,0 +1,22 @@
+<launch>
+
+    <arg name="namespace"  default="best_turtle_ever"/>
+    <arg name="node_name"  default="my_turtle"/>
+
+
+    <node pkg="turtlesim" name="turtle_arena" type="turtlesim_node"  output="screen">
+    </node>
+
+
+
+    <group ns="$(arg namespace)">
+      <rosparam command="load" ns=""
+                       file="$(find turtle_competition)/config/parameters.yaml"/>
+
+      <node pkg="turtle_competition" name="$(arg node_name)" type="competition_node.py"  output="screen">
+      </node>
+
+    </group>
+
+
+</launch>

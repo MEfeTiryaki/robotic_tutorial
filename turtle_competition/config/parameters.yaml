@@ -1,0 +1,3 @@
+max_vel:
+  lin: 1.0
+  ang: 0.5
