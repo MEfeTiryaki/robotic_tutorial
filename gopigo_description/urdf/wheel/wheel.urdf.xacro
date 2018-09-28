@@ -3,16 +3,16 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Wheel -->
-  <xacro:macro name="wheel"  params="leg **properties">
+  <xacro:macro name="wheel"  params="side **properties">
 
     <!-- Xacro:Properties-->
     <xacro:insert_block name="properties"/>
 
-    <xacro:property name="left"  value="${int(leg.startswith('L'))*2-1}"/>
-    <xacro:property name="front" value="${int(leg.startswith('F', 1))*2-1}"/>
+    <xacro:property name="left"  value="${int(side.startswith('L'))*2-1}"/>
+    <xacro:property name="front" value="${int(side.startswith('F', 1))*2-1}"/>
 
     <!-- Wheel link -->
-    <link name="${leg}_WHEEL">
+    <link name="${side}_WHEEL">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -35,15 +35,15 @@
       </inertial>
     </link>
 
-    <joint name="${leg}_WH" type="continuous">
+    <joint name="${side}_WH" type="continuous">
       <parent link="base"/>
-      <child link="${leg}_WHEEL"/>
+      <child link="${side}_WHEEL"/>
       <origin xyz="${front * x_wheel} ${left * y_wheel} ${z_wheel}" rpy="${PI/2} 0 0"/>
       <axis xyz="0 0 1" />
     </joint>
 
 
-    <gazebo reference="${leg}_WH" >
+    <gazebo reference="${side}_WH" >
     	<kp>${kp_wheel}</kp>
         <kd>${kd_wheel}</kd>
         <mu1>${mu_wheel}</mu1>
