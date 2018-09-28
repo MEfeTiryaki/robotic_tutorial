@@ -7,6 +7,6 @@ Dependencies:
 * Numpy 
 * [ros_node_utils](https://github.com/Sadetra/ros_node_utils)(required for gazebo/rviz simulation)
 *  CV2 (version 3.3.1-dev [instructions](https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/))
-* [aruco_ros](https://github.com/Sadetra/aruco_ros/tree/devel/efe)(the branch devel/efe)
-* [iai_kinect2](https://github.com/code-iai/iai_kinect2)(required to use kinect camera)
-* cv_bridge(required to use kinect camera)
+* [aruco_ros](https://github.com/Sadetra/aruco_ros/tree/devel/efe) (the branch devel/efe)
+* [iai_kinect2](https://github.com/code-iai/iai_kinect2) (required to use kinect camera)
+* cv_bridge (required to use kinect camera)
