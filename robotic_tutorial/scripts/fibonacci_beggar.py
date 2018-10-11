@@ -2,7 +2,7 @@
 
 import sys
 import rospy
-from robotic_tutorial_msgs.srv import Fibonacci,FibonacciResponse
+from robotic_tutorial.srv import Fibonacci,FibonacciResponse
 
 def client(x):
     rospy.wait_for_service('fibonacci_service')

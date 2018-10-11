@@ -30,34 +30,29 @@ class MyTurtle:
         # TODO : Read rosparameters "/max_vel/lin" and "/max_vel/ang" and assign
         # them to self.max_lin_vel and self.max_ang_vel respectively. Then
         # print the values using rospy.loginfo
-        self.max_lin_vel = rospy.get_param(self.ns_+"/max_vel/lin")
-        self.max_ang_vel = rospy.get_param(self.ns_+"/max_vel/ang")
-        rospy.loginfo("Max linear velocity : " + str(self.max_lin_vel))
-        rospy.loginfo("Max angular velocity :  " + str(self.max_ang_vel))
+        self.max_lin_vel =
+        self.max_ang_vel =
 
     def initilizeSubscribers(self):
         # TODO : create a subscriber called self.startSubscriber_ which subscribers
         # 'starter' with type 'Exercise_start' and evoke self.start_Callback
-        self.startSubscriber_ = rospy.Subscriber("starter", Exercise_start \
-                , callback = self.start_Callback )
+        self.startSubscriber_ =
 
         # TODO : create a subscriber called self.stateSubscriber_ which subscribers
         # '/turtle1/pose' with type 'Pose' and evoke self.state_Callback
-        self.stateSubscriber_ = rospy.Subscriber("/turtle1/pose", Pose \
-                , callback = self.state_Callback )
+        self.stateSubscriber_ =
 
     def initilizePublishers(self):
         # TODO : create a publisher called self.velPublisher which publishes
         # '/turtle1/cmd_vel' topic with type 'Twist' and queue_size 10
-        self.velPublisher =  rospy.Publisher('/turtle1/cmd_vel',Twist,queue_size=10)
+        self.velPublisher =
 
     def start_Callback(self,msg):
         # TODO : Write the start and end state arrays into self.start and
         # self.end variables and print these variables with rospy.loginfo()
-        self.start = msg.start
-        self.end = msg.end
-        rospy.loginfo("Start : " + str(self.start))
-        rospy.loginfo("End : " + str(self.end))
+        self.start =
+        self.end =
+
         # XXX : Don't touch this part
         if not self.isReceived:
             self.initPosition()
@@ -66,15 +61,15 @@ class MyTurtle:
     def state_Callback(self,msg):
         # TODO : create 3 dim numpy.array "self.state" receiving x,y,theta from
         # msg
-        self.state = np.array([msg.x,msg.y,msg.theta])
+        self.state =
 
     def publish_vel_vmd(self,vel):
         # TODO : create instance of Twist with name msg and assign velocities.
-        msg = Twist()
-        msg.linear.x = vel[0]
-        msg.angular.z = vel[1]
+        msg =
+        msg.linear.x =
+        msg.angular.z =
         # TODO : publish msg using self.velPublisher
-        self.velPublisher.publish(msg)
+
 
     def initPosition(self):
         # TODO : Move turtle to start point using "/turtle1/teleport_absolute"
@@ -84,8 +79,8 @@ class MyTurtle:
             # TODO : create service_proxy for '('/turtle1/teleport_absolute' using
             # 'TeleportAbsolute' service. Then call service proxy with self.start
             # as request
-            service_proxy = rospy.ServiceProxy('/turtle1/teleport_absolute', TeleportAbsolute)
-            resp1 = service_proxy(self.start[0],self.start[1],self.start[2])
+            service_proxy =
+            resp1 =
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
@@ -94,8 +89,8 @@ class MyTurtle:
         try:
             # TODO : create service_proxy for '/clear' using Empty service. Then
             # run service proxy with empty request.
-            service_proxy = rospy.ServiceProxy('/clear', Empty)
-            resp1 = service_proxy()
+            service_proxy =
+            resp1 =
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
@@ -105,27 +100,18 @@ class MyTurtle:
         direction_vector = np.array(self.end[0:2])-np.array(self.start[0:2])
         if (np.linalg.norm(direction_vector) != 0):
             # TODO : Rotate turtle to the direction of the end point
-            unit_dir = direction_vector/np.linalg.norm(direction_vector)
-            ang = np.arctan2(unit_dir[1],unit_dir[0])
-            first_turn = ang-self.start[2]
-            first_turn_duration =  np.abs(first_turn)/self.max_ang_vel
-            self.vel_cmd.append([0.0,self.max_ang_vel if first_turn>0 else -self.max_ang_vel])
+            self.vel_cmd.append([0.0,0.0])
             self.exe_time.append(first_turn_duration)
-
             # TODO : Move turtle to the direction of the end point
-            move_forward_duration = np.linalg.norm(direction_vector)/self.max_lin_vel
-            self.vel_cmd.append([self.max_lin_vel,0.0])
+            self.vel_cmd.append([0.0,0.0])
             self.exe_time.append(self.exe_time[-1]+move_forward_duration)
 
             # TODO : Rotate turtle to the final direction
-            last_turn = self.end[2]-ang
-            last_turn_duration = np.abs(last_turn)/self.max_ang_vel
-            self.vel_cmd.append([0.0,self.max_ang_vel if last_turn>0 else -self.max_ang_vel])
+            self.vel_cmd.append([0.0,0.0])
             self.exe_time.append(self.exe_time[-1]+last_turn_duration)
         else:
-            only_turn = self.end[2]-self.start[2]
-            only_turn_duration = np.abs(only_turn)/self.max_ang_vel
-            self.vel_cmd.append([0.0,self.max_ang_vel if only_turn>0 else -self.max_ang_vel])
+            # TODO : Rotate turtle to the final direction
+            self.vel_cmd.append([0.0,0.0])
             self.exe_time.append(only_turn_duration)
 
         # Don't Touch this part of the code

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import rospy
-from robotic_tutorial_msgs.srv import Fibonacci,FibonacciResponse
+from robotic_tutorial.srv import Fibonacci,FibonacciResponse
 
 def callback(req):
     print(req)
     if req.number<0:
-        rospy.loginfo("Wrong number!!")
+        rospy.logwarn("Wrong number!!")
         return FibonacciResponse(False,-1)
     if req.number > 20:
         rospy.loginfo("Too big number!!")

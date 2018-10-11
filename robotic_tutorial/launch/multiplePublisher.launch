@@ -1,24 +1,24 @@
 <launch>
 
-    <!--
+
     <rosparam command="load" ns=""
                     file="$(find robotic_tutorial)/config/parameters.yaml"/>
-    -->
+
 
 
     <group ns="arm">
-      <!-- -->
+      <!--
       <rosparam param="robot_state_size"> 6 </rosparam>
-
+    -->
       <node pkg="robotic_tutorial" name="joint_state_publisher" type="jointStatePublisher.py"  output="screen">
       </node>
 
     </group>
 
     <group ns="humanoid">
-      <!-- -->
+      <!--
       <rosparam param="robot_state_size"> 37 </rosparam>
-
+      -->
       <node pkg="robotic_tutorial" name="joint_state_publisher" type="jointStatePublisher.py"  output="screen">
       </node>
 

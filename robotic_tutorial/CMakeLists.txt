@@ -12,7 +12,6 @@ add_service_files(
   Fibonacci.srv
 )
 
-
 catkin_python_setup()
 generate_messages(
   DEPENDENCIES
@@ -23,6 +22,7 @@ catkin_package(
   message_runtime
   std_msgs
 )
+
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
