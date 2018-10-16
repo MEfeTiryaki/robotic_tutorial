@@ -15,11 +15,12 @@ def move(v,w,t):
     d = 0.06
     v_l = int(scale*(v + d*w))
     v_r = int(scale*(v - d*w))
+    
     if v_l>127:
         v_l = 127
         print("v_l_max : " + str(v_l))
-    elif v_l<127:
-        v_l =-127
+    elif v_l<-127:
+        v_l = -127
         print("v_l_min : " + str(v_l))
     else:
         print("v_l : " + str(v_l))
@@ -27,8 +28,8 @@ def move(v,w,t):
     if v_r>127:
         v_r = 127
         print("v_r_max : " + str(v_r))
-    elif v_r<127:
-        v_r =-127
+    elif v_r<-127:
+        v_r = -127
         print("v_r_min : " + str(v_r))
     else:
         print("v_r : " + str(v_r))
