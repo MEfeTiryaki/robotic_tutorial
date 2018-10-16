@@ -11,7 +11,7 @@ def move(v,w,t):
     left_publisher = rospy.Publisher('/motor/pwm/left',Int8,queue_size=10)
     right_publisher = rospy.Publisher('/motor/pwm/right',Int8,queue_size=10)
 
-    scale = 300
+    scale = 470
     d = 0.06
     v_l = int(scale*(v + d*w))
     v_r = int(scale*(v - d*w))
