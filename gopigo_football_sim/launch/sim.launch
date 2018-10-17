@@ -61,7 +61,7 @@
   <!-- Enable/disable rviz -->
   <arg name="run_rviz"                                  default="true"/>
   <!-- rviz configuration -->
-  <arg name="rviz_config_path"                          default="$(find gopigo_sim)/config/rviz/gopigo.rviz"/>
+  <arg name="rviz_config_path"                          default="$(find gopigo_football_sim)/config/rviz/gopigo.rviz"/>
 
   <!-- TF PARAMETERS -->
   <!-- tf prefix -->
@@ -103,6 +103,8 @@
 
   <group if="$(arg simulation)">
     <include file="$(find gopigo_description)/launch/modules/camera.launch"/>
+    <include file="$(find gopigo_description)/launch/modules/ball.launch"/>
+    <include file="$(find gopigo_description)/launch/modules/field.launch"/>
   </group>
 
   <!--  Aruco  -->

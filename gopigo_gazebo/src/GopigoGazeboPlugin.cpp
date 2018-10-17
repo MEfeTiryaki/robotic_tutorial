@@ -136,7 +136,7 @@ void GopigoGazeboPlugin::writeSimulation()
   double rightVelocity = scale * rightMotorCommands_.data;
   jointPtrs_[0]->SetVelocity(0, leftVelocity);
   jointPtrs_[1]->SetVelocity(0, rightVelocity);
-  std::cout << jointPtrs_[0]->GetAngle(0)<<std::endl;
+  //std::cout << jointPtrs_[0]->GetAngle(0)<<std::endl;
 }
 void GopigoGazeboPlugin::readSimulation()
 {

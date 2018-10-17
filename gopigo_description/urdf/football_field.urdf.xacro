@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<robot name="field" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="green"><color rgba="0.0 1.0 0.0 1.0" /></material>
+
+  <xacro:property name="w"         value= "2.0"/> <!-- [m] -->
+  <xacro:property name="l"         value= "1.5"/> <!-- [m] -->
+  <xacro:property name="wall_w"    value= "0.02"/> <!-- [m] -->
+
+  <link name="field_base"></link>
+  <!-- Camera link -->
+  <joint name="field_link_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="field_base"/>
+    <child link="field_base_link" />
+  </joint>
+
+  <link name="field_base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${w} ${l} 0.0005"/>
+      </geometry>
+      <material name="green" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${w} ${l} 0.0005"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="100000"/>
+      <inertia ixx="100000"  ixy="0"  ixz="0" iyy="100000" iyz="0" izz="100000" />
+    </inertial>
+  </link>
+
+  <joint name="right_wall_joint" type="fixed">
+    <origin xyz="0.0 ${l/2} 0.1" rpy="0 0 0" />
+    <parent link="field_base_link"/>
+    <child link="right_wall" />
+  </joint>
+  <link name="right_wall">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${w} ${wall_w} 0.2"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${w} ${wall_w} 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1000"/>
+      <inertia ixx="1000"  ixy="0"  ixz="0" iyy="1000" iyz="0" izz="1000" />
+    </inertial>
+  </link>
+
+  <joint name="front_wall_joint" type="fixed">
+    <origin xyz="${w/2} 0.0 0.1" rpy="0 0 0" />
+    <parent link="field_base_link"/>
+    <child link="front_wall" />
+  </joint>
+  <link name="front_wall">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${wall_w} ${l}  0.2"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${wall_w} ${l} 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1000"/>
+      <inertia ixx="1000"  ixy="0"  ixz="0" iyy="1000" iyz="0" izz="1000" />
+    </inertial>
+  </link>
+
+  <joint name="left_wall_joint" type="fixed">
+    <origin xyz="0 -${l/2} 0.1" rpy="0 0 0" />
+    <parent link="field_base_link"/>
+    <child link="left_wall" />
+  </joint>
+  <link name="left_wall">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${w} ${wall_w} 0.2"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${w} ${wall_w} 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1000"/>
+      <inertia ixx="1000"  ixy="0"  ixz="0" iyy="1000" iyz="0" izz="1000" />
+    </inertial>
+  </link>
+
+  <joint name="hind_wall_joint" type="fixed">
+    <origin xyz="-${w/2} 0.0 0.1" rpy="0 0 0" />
+    <parent link="field_base_link"/>
+    <child link="hind_wall" />
+  </joint>
+  <link name="hind_wall">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${wall_w} ${l} 0.2"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="${wall_w} ${l} 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1000"/>
+      <inertia ixx="1000"  ixy="0"  ixz="0" iyy="1000" iyz="0" izz="1000" />
+    </inertial>
+  </link>
+
+
+  <gazebo reference="field_base" >
+      <material>Gazebo/Green</material>
+  </gazebo>
+</robot>
