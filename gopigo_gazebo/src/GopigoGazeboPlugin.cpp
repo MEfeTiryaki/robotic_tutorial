@@ -10,7 +10,8 @@ namespace gazebo {
 GopigoGazeboPlugin::GopigoGazeboPlugin()
     : nodeHandle_(),
       isEstimatorUsed(false),
-      actuatorCommands_()
+      leftMotorCommands_(),
+      rightMotorCommands_()
 {
 }
 
@@ -70,15 +71,15 @@ void GopigoGazeboPlugin::initJointStructures()
 {
   jointPtrs_ = model_->GetJoints();
 
-  std::cout << "[" << robotName_
-            << "::GazeboPlugin::initJointStructures] "<< "Detected Joints are :" << std::endl;
+  //std::cout << "[" << robotName_
+  //          << "::GazeboPlugin::initJointStructures] "<< "Detected Joints are :" << std::endl;
 
   jointPositionsReset_ = std::vector<double>(jointPtrs_.size());
 
   // Init the joint structures.
   for (int i = 0; i < jointPtrs_.size(); i++) {
     const auto jointPtr = jointPtrs_[i];
-    std::cout << "  - " << jointPtr->GetName() << std::endl;
+    //std::cout << "  - " << jointPtr->GetName() << std::endl;
 
     // Set joint position to default initial position
     jointPtr->SetPosition(0, 0);
@@ -93,8 +94,8 @@ void GopigoGazeboPlugin::initLinkStructure()
   for (int i = 0; i < links.size(); i++) {
     if (links[i]->GetName().find("base") != std::string::npos) {
       baseLink_ = links[i];
-      std::cout << "[" << robotName_
-                << "::GazeboPlugin::initLinkStructure] "<< "Model contain base_link!" << std::endl;
+      //std::cout << "[" << robotName_
+      //          << "::GazeboPlugin::initLinkStructure] "<< "Model contain base_link!" << std::endl;
       return;
     }
   }
@@ -103,31 +104,35 @@ void GopigoGazeboPlugin::initLinkStructure()
 void GopigoGazeboPlugin::initSubscribers()
 {
 
-  // Actuator Command Subscriber
-  const std::string subscriberStr = "/"+ robotName_ + actuatorCommandSubscriberName_;
-  std::cout << ns_ << " , " << robotName_ << std::endl;
-
-actuatorCommandSubscriber_ = nodeHandle_->subscribe("/"+ns_+"/"+robotName_+"/cmd_vel",
-                                                      actuatorCommandSubscriberQueueSize_,
-                                                      &GopigoGazeboPlugin::actuatorCommandsCallback,
-                                                      this);
-
-  actuatorCommands_.velocity = std::vector<double>(2, 0.0);
-
+  leftMotorCommandSubscriber_ = nodeHandle_->subscribe("/"+ns_+"/"+robotName_+"/motor/pwm/left",
+                                                        actuatorCommandSubscriberQueueSize_,
+                                                        &GopigoGazeboPlugin::leftMotorCommandsCallback,
+                                                        this);
+  rightMotorCommandSubscriber_ = nodeHandle_->subscribe("/"+ns_+"/"+robotName_+"/motor/pwm/right",
+                                                        actuatorCommandSubscriberQueueSize_,
+                                                        &GopigoGazeboPlugin::rightMotorCommandsCallback,
+                                                        this);
+  leftMotorCommands_.data = 0;
+  rightMotorCommands_.data = 0;
 }
 
-void GopigoGazeboPlugin::actuatorCommandsCallback(const sensor_msgs::JointState& msg)
+void GopigoGazeboPlugin::leftMotorCommandsCallback(const std_msgs::Int8& msg)
 {
-  actuatorCommands_ = msg;
+  leftMotorCommands_ = msg;
 }
-
+void GopigoGazeboPlugin::rightMotorCommandsCallback(const std_msgs::Int8& msg)
+{
+  rightMotorCommands_ = msg;
+}
 void GopigoGazeboPlugin::writeSimulation()
 {
   // TODO : get-rid of 2
-  for (int i = 0 ;i<2 ;i++ ) {
-    double jointVelocity = actuatorCommands_.velocity[i];
-    jointPtrs_[i]->SetVelocity(0, jointVelocity);
-  }
+  double scale = 0.05;
+  double leftVelocity = scale * leftMotorCommands_.data;
+  double rightVelocity = scale * rightMotorCommands_.data;
+  jointPtrs_[0]->SetVelocity(0, leftVelocity);
+  jointPtrs_[1]->SetVelocity(0, rightVelocity);
+
 }
 
 
