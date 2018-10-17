@@ -20,97 +20,21 @@
   <arg name="simulation"                                default="true"/>
   <arg name="debug"                                     default="false"/>
 
-
-  <!-- GAZEBO ARGUMENTS -->
-  <!-- Run Gazebo headless -->
-  <arg name="gazebo_headless"                           default="false"/>
-
-  <!-- Model path -->
-  <!-- If the world is not found in a "linked" devel space layout (see catkin config), this might help: -->
-  <arg name="model_path"                                default="$(find gopigo_gazebo)/.."/>
-
-
   <!-- WORLD MAP -->
   <arg name="world_file"                                default="$(find gopigo_gazebo)/worlds/empty.world"/>
-  <!-- Path to the world file
-  <arg name="world_file"                                default="$(find ridgeback_gazebo)/worlds/scenario1.world"/>
-    -->
-
-
-  <!-- Set true to fix the gopigo's main body in space -->
-  <arg name="fixed"                                     default="false"/>
-
-  <!-- Set the initial pose of the robot's main body -->
-  <arg name="x"                                         default="0.0"/>
-  <arg name="y"                                         default="0.0"/>
-  <arg name="z"                                         default="0.0"/>
-  <arg name="roll"                                      default="0.0"/>
-  <arg name="pitch"                                     default="0.0"/>
-  <arg name="yaw"                                       default="0.0"/>
-
-  <!-- Frame offsets -->
-  <arg name="frame_odometry_offset_x"                   default="0.0"/>
-  <arg name="frame_odometry_offset_y"                   default="0.0"/>
-  <arg name="frame_odometry_offset_z"                   default="0.0"/>
-
-
 
   <!-- GUI ARGUMENTS -->
   <!-- Enable/disable Gazebo GUI -->
   <arg name="run_gazebo_gui"                            default="true"/>
-  <!-- Enable/disable rviz -->
-  <arg name="run_rviz"                                  default="true"/>
-  <!-- rviz configuration -->
-  <arg name="rviz_config_path"                          default="$(find gopigo_sim)/config/rviz/gopigo.rviz"/>
-
-  <!-- TF PARAMETERS -->
-  <!-- tf prefix -->
-  <arg name="tf_prefix"                                 default=""/>
-  <!-- tf minimal -->
-  <arg name="tf_minimal"                                default="false"/>
-
-
-  <!-- rosparam command="load"  ns="" file="$(find gopigo_sim)/config/parameters_sim.yaml"/ -->
-
-
 
   <!-- GAZEBO -->
   <include file="$(find gopigo_gazebo)/launch/gazebo.launch">
     <arg name="use_sim_time"      value="true"/>
     <arg name="gui"               value="$(arg run_gazebo_gui)"/>
     <arg name="world_name"        value="$(arg world_file)"/>
-    <arg name="verbose"           value="true"/>
+    <arg name="verbose"           value="false"/>
     <arg name="simulation"        value="$(arg simulation)"/>
     <arg name="robot_name"        value="$(arg robot_name)"/>
-  </include>
-
-  <!-- RVIZ -->
-  <group if="$(arg run_rviz)">
-    <include file="$(find gopigo_description)/launch/rviz/rviz.launch">
-      <arg name="rviz_config_path"          value="$(arg rviz_config_path)"/>
-      <arg name="tf_minimal"                value="$(arg tf_minimal)"/>
-    </include>
-  </group>
-
-  <!-- CAMERA KINECT -->
-  <group unless="$(arg simulation)">
-    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
-      <arg name="publish_tf"        default="false"/>
-      <arg name="base_name_tf"      default="camera_link"/>
-      <arg name="output"    value="log"/>
-    </include>
-  </group>
-
-  <group if="$(arg simulation)">
-    <include file="$(find gopigo_description)/launch/modules/camera.launch"/>
-  </group>
-
-  <!--  Aruco  -->
-  <include file="$(find gopigo_aruco)/launch/any_multi.launch">
-    <arg name="namespace"      value="camera_0001"/>
-    <arg name="camera_name"      value="camera"/>
-    <arg name="camera_frame"     value="camera_link_optical"/>
-    <arg name="image_name"       value="image_raw"/>
   </include>
 
   <!-- ROBOTS -->
@@ -122,12 +46,5 @@
     <arg name="y"         value="0.0"/>
     <arg name="z"         value="0.1"/>
   </include>
-
-  <!-- TF publisher -->
-  <include file="$(find gopigo_tf)/launch/tf_publisher.launch">
-    <arg name="simulation"          value="$(arg simulation)"/>
-  </include>
-
-
 
 </launch>

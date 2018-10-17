@@ -7,15 +7,15 @@ import rospy
 from std_msgs.msg import Int8
 
 def move(v,w,t):
-    rospy.init_node('gopigo_mover',anonymous=True)
-    left_publisher = rospy.Publisher('/motor/pwm/left',Int8,queue_size=10)
-    right_publisher = rospy.Publisher('/motor/pwm/right',Int8,queue_size=10)
+    rospy.init_node('gopigo_mover')
+    left_publisher = rospy.Publisher('/gopigo_0001/motor/pwm/left',Int8,queue_size=10)
+    right_publisher = rospy.Publisher('/gopigo_0001/motor/pwm/right',Int8,queue_size=10)
 
     scale = 470
     d = 0.06
     v_l = int(scale*(v + d*w))
     v_r = int(scale*(v - d*w))
-    
+    print(v_l,v_r)
     if v_l>127:
         v_l = 127
         print("v_l_max : " + str(v_l))
@@ -36,13 +36,19 @@ def move(v,w,t):
 
     rate = rospy.Rate(10)
 
+    # XXX : hack for getting simulation time 
     time_start = rospy.get_time()
+    while time_start==0:
+        time_start = rospy.get_time()
+
     while not rospy.is_shutdown():
         left_publisher.publish(v_l)
         right_publisher.publish(v_r)
-        rate.sleep()
-        if (rospy.get_time() - time_start) >= t:
+        time_from_start = rospy.get_time() - time_start
+        print(rospy.get_time(),time_from_start)
+        if time_from_start> t:
             break
+        rate.sleep()
     left_publisher.publish(0)
     right_publisher.publish(0)
 

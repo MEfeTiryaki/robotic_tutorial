@@ -1,0 +1,37 @@
+tf_publisher_0:
+  parent              : world
+  child               : odom
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0, 1]
+  source_topic        : "None"
+  source_queue_size   : 0
+tf_publisher_1:
+  parent              : world
+  child               : map
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0 ,1]
+  source_topic        : "None"
+  source_queue_size   : 0
+tf_publisher_2:
+  parent              : odom
+  child               : camera_base
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0 ,1]
+  source_topic        : "None"
+  source_queue_size   : 0
+
+tf_publisher_3:
+  parent              : camera_link_optical
+  child               : camera_0001/camera_link_optical
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0 ,1]
+  source_topic        : "None"
+  source_queue_size   : 0
+
+tf_publisher_4:
+  parent              : odom
+  child               : base
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0 ,1]
+  source_topic        : "None"
+  source_queue_size   : 0

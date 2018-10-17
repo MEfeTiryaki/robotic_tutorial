@@ -28,14 +28,14 @@
   </xacro:gopigo_base>
 
   <!-- Left components -->
-  <xacro:wheel leg="L">
+  <xacro:wheel side="L">
     <properties>
       <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel_parameters.urdf.xacro"/>
     </properties>
   </xacro:wheel>
 
   <!-- Right components -->
-  <xacro:wheel leg="R">
+  <xacro:wheel side="R">
     <properties>
       <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel_parameters.urdf.xacro"/>
     </properties>

@@ -87,7 +87,7 @@
       </inertial>
     </link>
 
-    <xacro:marker_0 name="marker0" pad_base="base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    <xacro:marker_0 name="marker0" pad_base="base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.0"/>
 
   </xacro:macro>
 

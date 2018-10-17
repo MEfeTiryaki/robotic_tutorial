@@ -31,6 +31,8 @@
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/TwistWithCovarianceStamped.h>
+// std msgs
+#include <std_msgs/Int8.h>
 
 // sensor msgs
 #include <sensor_msgs/JointState.h>
@@ -81,7 +83,8 @@ class GopigoGazeboPlugin : public ModelPlugin
   virtual void writeSimulation();
 
   // Set Commands to be writen in writeSimulation
-  void actuatorCommandsCallback(const sensor_msgs::JointState& msg);
+  void leftMotorCommandsCallback(const std_msgs::Int8& msg);
+  void rightMotorCommandsCallback(const std_msgs::Int8& msg);
 
 
   // Ros node
@@ -125,13 +128,15 @@ class GopigoGazeboPlugin : public ModelPlugin
   sensor_msgs::JointState jointStates_ ;
 
   // Subscriber
-  ros::Subscriber actuatorCommandSubscriber_;
+  ros::Subscriber leftMotorCommandSubscriber_;
+  ros::Subscriber rightMotorCommandSubscriber_;
   // Subscriber names
   std::string actuatorCommandSubscriberName_;
   // Subscriber queue_size
   int actuatorCommandSubscriberQueueSize_;
   // Subscriber msgs
-  sensor_msgs::JointState actuatorCommands_;
+  std_msgs::Int8 leftMotorCommands_;
+  std_msgs::Int8 rightMotorCommands_;
 
 
   // Estimator Bool

@@ -11,7 +11,7 @@
   <xacro:property name="B_Iyz_B"            value="-0.000"/> <!-- [kg * m^2] -->
   <xacro:property name="L"   value= "0.2"/> <!-- [m] -->
   <xacro:property name="W"   value= "0.1"/> <!-- [m] -->
-  <xacro:property name="H"   value= "0.1"/> <!-- [m] -->
+  <xacro:property name="H"   value= "0.08"/> <!-- [m] -->
 
 
 </robot>
