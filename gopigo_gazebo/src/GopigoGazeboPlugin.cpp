@@ -9,7 +9,6 @@ namespace gazebo {
 // Todo : check if we can add gopigo name here
 GopigoGazeboPlugin::GopigoGazeboPlugin()
     : nodeHandle_(),
-      isEstimatorUsed(false),
       leftMotorCommands_(),
       rightMotorCommands_()
 {
@@ -44,6 +43,7 @@ void GopigoGazeboPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
   initLinkStructure();
   // initialize ROS pub/sub/services
   initSubscribers();
+  initPublishers();
 
   // reset simulation variables
   Reset();
@@ -55,16 +55,12 @@ void GopigoGazeboPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
 
 void GopigoGazeboPlugin::OnUpdate()
 {
+  readSimulation();
   writeSimulation();
 }
 
 void GopigoGazeboPlugin::readParameters(sdf::ElementPtr sdf)
 {
-  // Get Frame parameters
-  nodeHandle_->getParam(ns_ + "/frame/base/name", frameBase_);
-  nodeHandle_->getParam(ns_ + "/frame/odometry/name", frameOdometry_);
-  nodeHandle_->getParam(ns_ + "/frame/world/name", frameWorld_);
-
 }
 
 void GopigoGazeboPlugin::initJointStructures()
@@ -116,6 +112,14 @@ void GopigoGazeboPlugin::initSubscribers()
   rightMotorCommands_.data = 0;
 }
 
+void GopigoGazeboPlugin::initPublishers()
+{
+  leftMotorAnglePublisher_ = nodeHandle_->advertise<std_msgs::Float64>(
+                  "/"+ns_+"/"+robotName_+"/motor/encoder/left",10);
+  rightMotorAnglePublisher_ = nodeHandle_->advertise<std_msgs::Float64>(
+                  "/"+ns_+"/"+robotName_+"/motor/encoder/right",10);
+}
+
 void GopigoGazeboPlugin::leftMotorCommandsCallback(const std_msgs::Int8& msg)
 {
   leftMotorCommands_ = msg;
@@ -132,9 +136,27 @@ void GopigoGazeboPlugin::writeSimulation()
   double rightVelocity = scale * rightMotorCommands_.data;
   jointPtrs_[0]->SetVelocity(0, leftVelocity);
   jointPtrs_[1]->SetVelocity(0, rightVelocity);
-
+  std::cout << jointPtrs_[0]->GetAngle(0)<<std::endl;
 }
-
+void GopigoGazeboPlugin::readSimulation()
+{
+  double leftAngle = jointPtrs_[0]->GetAngle(0).Radian();
+  double rightAngle = jointPtrs_[1]->GetAngle(0).Radian();
+  while (leftAngle>M_PI){
+    leftAngle -= 2*M_PI;
+  }
+  while (leftAngle<-M_PI){
+    leftAngle += 2*M_PI;
+  }
+  while (rightAngle>M_PI){
+    rightAngle -= 2*M_PI;
+  }
+  while (rightAngle<-M_PI){
+    rightAngle += 2*M_PI;
+  }
+  leftMotorAnglePublisher_.publish(leftAngle);
+  rightMotorAnglePublisher_.publish(rightAngle);
+}
 
 GZ_REGISTER_MODEL_PLUGIN(GopigoGazeboPlugin)
 }

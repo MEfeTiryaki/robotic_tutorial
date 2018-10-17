@@ -13,7 +13,7 @@
 #include <atomic>
 #include <condition_variable>
 #include <vector>
-
+#include <math.h>
 // required for std::this_thread
 #include <thread>
 
@@ -33,6 +33,7 @@
 #include <geometry_msgs/TwistWithCovarianceStamped.h>
 // std msgs
 #include <std_msgs/Int8.h>
+#include <std_msgs/Float64.h>
 
 // sensor msgs
 #include <sensor_msgs/JointState.h>
@@ -40,8 +41,6 @@
 #include <sensor_msgs/JointState.h>
 
 #include "gopigo_msgs/GopigoState.h"
-
-#include <tf/transform_broadcaster.h>
 
 // urdf
 #include <urdf/model.h>
@@ -77,7 +76,11 @@ class GopigoGazeboPlugin : public ModelPlugin
 
   // Inits the ROS subscriber.
   virtual void initSubscribers() ;
+  // Inits the ROS subscriber.
+  virtual void initPublishers() ;
 
+  // Read simulation state.
+  virtual void readSimulation();
 
   // Writes simulation state.
   virtual void writeSimulation();
@@ -105,27 +108,19 @@ class GopigoGazeboPlugin : public ModelPlugin
   // ROS robot description URDF model.
   urdf::Model robotDescriptionUrdfModel_;
 
-  // Frame names.
-  std::string frameBase_;
-  std::string frameOdometry_;
-  std::string frameWorld_;
 
-  // TF transforms
-  tf::Transform odomTransform;
-
-  // Publisher
-  ros::Publisher robotStatePublisher_;
-  ros::Publisher jointStatePublisher_;
-  ros::Publisher actuatorDataPublisher_;
+  // Pulishers
+  ros::Publisher leftMotorAnglePublisher_;
+  ros::Publisher rightMotorAnglePublisher_;
   // Publisher names
-  std::string robotStatePublisherName_;
-  std::string jointStatePublisherName_;
+  std::string leftMotorAnglePublisherName_;
+  std::string rightMotorAnglePublisherName_;
   // Publisher queue_size
-  int robotStatePublisherQueueSize_;
-  int jointStatePublisherQueueSize_;
+  int leftMotorAnglePublisherQueueSize_;
+  int rightMotorAnglePublisherQueueSize_;
   // Publisher msgs
-  gopigo_msgs::GopigoState gopigoStateMsg_ ;
-  sensor_msgs::JointState jointStates_ ;
+  std_msgs::Float64 leftMotorAngle_ ;
+  std_msgs::Float64 rightMotorAngle_ ;
 
   // Subscriber
   ros::Subscriber leftMotorCommandSubscriber_;
@@ -137,10 +132,6 @@ class GopigoGazeboPlugin : public ModelPlugin
   // Subscriber msgs
   std_msgs::Int8 leftMotorCommands_;
   std_msgs::Int8 rightMotorCommands_;
-
-
-  // Estimator Bool
-  bool isEstimatorUsed;
 
   // Model.
   physics::ModelPtr model_;
