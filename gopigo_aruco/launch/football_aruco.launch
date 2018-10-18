@@ -1,0 +1,23 @@
+<launch>
+    <arg name="namespace"         default="camera_0001"/>
+    <arg name="camera_name"       default="camera_0"/>
+    <arg name="camera_frame"      default="camera_0_camera_link_optical"/>
+    <arg name="image_name"        default="image_raw"/>
+    <arg name="marker_frame"      default="aruco_marker_frame"/>
+    <arg name="ref_frame"         default=""/>
+    <arg name="corner_refinement" default="LINES" /> <!-- NONE, HARRIS, LINES, SUBPIX -->
+
+
+    <rosparam command="load" ns="aruco_multi" file="$(find gopigo_aruco)/config/any_multi_marker/parameters_sim.yaml"/>
+
+    <node pkg="aruco_ros" type="aruco_football" name="aruco_football_node" output="screen">
+        <remap from="/camera_info" to="/$(arg namespace)/$(arg camera_name)/camera_info" />
+        <remap from="/image"       to="/$(arg namespace)/$(arg camera_name)/$(arg image_name)" />
+        <param name="image_is_rectified" value="false"/>
+        <param name="reference_frame"    value="$(arg ref_frame)"/>   <!-- frame in which the marker pose will be refered -->
+        <param name="camera_frame"       value="$(arg camera_frame)"/>
+        <param name="marker_frame"       value="$(arg marker_frame)" />
+        <param name="corner_refinement"  value="$(arg corner_refinement)" />
+    </node>
+
+</launch>

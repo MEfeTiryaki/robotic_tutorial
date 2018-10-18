@@ -34,9 +34,9 @@ def move(v,w,t):
     else:
         print("v_r : " + str(v_r))
 
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(100)
 
-    # XXX : hack for getting simulation time 
+    # XXX : hack for getting simulation time
     time_start = rospy.get_time()
     while time_start==0:
         time_start = rospy.get_time()

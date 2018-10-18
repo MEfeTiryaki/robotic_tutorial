@@ -9,7 +9,7 @@
 
   <xacro:property name="pole_thickness"         value= "0.05"/> <!-- [m] -->
   <xacro:property name="pole_height"         value= "1.0"/> <!-- [m] -->
-  <xacro:property name="vpole_height"         value= "1.0"/> <!-- [m] -->
+  <xacro:property name="vpole_height"         value= "1.5"/> <!-- [m] -->
   <xacro:property name="camera_w"         value= "0.1"/> <!-- [m] -->
   <xacro:property name="camera_l"         value= "0.1"/> <!-- [m] -->
   <xacro:property name="camera_h"         value= "0.5"/> <!-- [m] -->
@@ -103,7 +103,7 @@
 
 
   <!-- Camera link -->
-  <joint name="camera_top_joint" type="revolute">
+  <joint name="camera_top_joint" type="fixed">
     <origin xyz="0 0 ${-vpole_height/2}" rpy="0 0 -1.57" />
     <parent link="v_pole"/>
     <child link="camera_link" />

@@ -3,8 +3,8 @@
 
   <material name="green"><color rgba="0.0 1.0 0.0 1.0" /></material>
 
-  <xacro:property name="w"         value= "2.0"/> <!-- [m] -->
-  <xacro:property name="l"         value= "1.5"/> <!-- [m] -->
+  <xacro:property name="w"         value= "2.5"/> <!-- [m] -->
+  <xacro:property name="l"         value= "2.0"/> <!-- [m] -->
   <xacro:property name="wall_w"    value= "0.02"/> <!-- [m] -->
 
   <link name="field_base"></link>
@@ -19,14 +19,14 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <box size="${w} ${l} 0.0005"/>
+        <box size="${w} ${l} 0.003"/>
       </geometry>
       <material name="green" />
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="${w} ${l} 0.0005"/>
+        <box size="${w} ${l} 0.003"/>
       </geometry>
     </collision>
     <inertial>

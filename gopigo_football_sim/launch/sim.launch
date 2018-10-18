@@ -108,7 +108,7 @@
   </group>
 
   <!--  Aruco  -->
-  <include file="$(find gopigo_aruco)/launch/any_multi.launch">
+  <include file="$(find gopigo_aruco)/launch/football_aruco.launch">
     <arg name="namespace"      value="camera_0001"/>
     <arg name="camera_name"      value="camera"/>
     <arg name="camera_frame"     value="camera_link_optical"/>
