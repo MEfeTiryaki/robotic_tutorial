@@ -38,6 +38,7 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
     </node>
 
+
     <!-- SPAWNER -->
     <node name="spawner_robot" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args=" -param robot_description

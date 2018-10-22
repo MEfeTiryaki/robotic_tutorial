@@ -6,9 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /Camera1
         - /Camera1/Visibility1
         - /MarkerArray1
+        - /TF1
         - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 296
@@ -178,19 +178,75 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        aruco_marker_frame_0:
+          Value: true
+        base:
+          Value: false
+        base_inertia:
+          Value: false
+        camera_0001/camera_link_optical:
+          Value: false
+        camera_base:
+          Value: false
+        camera_base_link:
+          Value: false
+        camera_link:
+          Value: false
+        camera_link_optical:
+          Value: true
+        dummy_wheel_front:
+          Value: false
+        map:
+          Value: false
+        marker0_background:
+          Value: false
+        marker0_pad:
+          Value: true
+        marker0_shape_0:
+          Value: false
+        odom:
+          Value: false
+        pole:
+          Value: false
+        v_pole:
+          Value: false
+        world:
+          Value: false
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        world:
+          map:
+            {}
+          odom:
+            base:
+              base_inertia:
+                {}
+              dummy_wheel_front:
+                {}
+              marker0_pad:
+                marker0_background:
+                  marker0_shape_0:
+                    {}
+            camera_base:
+              camera_base_link:
+                pole:
+                  v_pole:
+                    camera_link:
+                      camera_link_optical:
+                        aruco_marker_frame_0:
+                          {}
+                        camera_0001/camera_link_optical:
+                          {}
       Update Interval: 0
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -216,7 +272,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.30765581
+      Distance: 1.41607785
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -231,10 +287,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.249796659
+      Pitch: 0.709796607
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.32539833
+      Yaw: 1.14039814
     Saved: ~
 Window Geometry:
   Camera:
@@ -254,5 +310,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1429
-  X: 1172
-  Y: 337
+  X: 1198
+  Y: 235

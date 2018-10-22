@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 import rospy
-from controller_node import ControllerNode
+from gopigo_state_publisher import GopigoStatePublisher
 
 
 if __name__ == "__main__":
     # ROS node
-    node_name = "controller"
-    tf_pub = ControllerNode(node_name)
+    node_name = "estimator"
+    tf_pub = GopigoStatePublisher(node_name)

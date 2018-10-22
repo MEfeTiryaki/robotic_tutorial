@@ -9,10 +9,10 @@
 
     <!-- LOAD PARAMETER FILES -->
     <group if="$(arg simulation)">
-      <rosparam command="load" ns="$(arg node_name)" file="$(find gopigo_sim)/config/tf/tf_sim.yaml"/>
+      <rosparam command="load" ns="$(arg node_name)" file="$(find gopigo_football_sim)/config/tf/tf_sim.yaml"/>
     </group>
     <group unless="$(arg simulation)">
-      <rosparam command="load" ns="$(arg node_name)" file="$(find gopigo_sim)/config/tf/tf_real.yaml"/>
+      <rosparam command="load" ns="$(arg node_name)" file="$(find gopigo_football_sim)/config/tf/tf_real.yaml"/>
     </group>
 
     <node pkg="gopigo_tf" name="$(arg node_name)" type="main.py" output="screen">
@@ -20,5 +20,5 @@
       <param name="frequency" value="$(arg frequency)"/>
     </node>
 
-  
+
 </launch>

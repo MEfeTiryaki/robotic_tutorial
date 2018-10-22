@@ -9,4 +9,9 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <depend>rospy</depend>
+  <depend>tf</depend>
+  <depend>geometry_msgs</depend>
+  <depend>ros_node_base_py</depend>
+
 </package>
