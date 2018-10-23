@@ -13,7 +13,7 @@
   <arg name="robot_name"                                default="$(arg robot_description)_$(arg robot_id)"/>
 
   <!-- Set robot description path -->
-  <arg name="description_file"                          default="$(find ridgeback_description)/urdf/ridgeback.urdf.xacro"/>
+  <arg name="description_file"                          default="$(find gopigo_description)/urdf/gopigo.urdf.xacro"/>
 
   <!-- PARAMETERS -->
   <!-- Set global simulation parameter -->
@@ -22,22 +22,22 @@
 
 
   <!-- GAZEBO ARGUMENTS -->
-
   <!-- Run Gazebo headless -->
   <arg name="gazebo_headless"                           default="false"/>
 
   <!-- Model path -->
   <!-- If the world is not found in a "linked" devel space layout (see catkin config), this might help: -->
-  <arg name="model_path"                                default="$(find cri_efe_gazebo)/.."/>
+  <arg name="model_path"                                default="$(find gopigo_gazebo)/.."/>
 
 
   <!-- WORLD MAP -->
-  <!--arg name="world"                                     default="empty"/-->
-  <arg name="world"                                     default="empty"/>
-  <!-- Path to the world file -->
-  <arg name="world_file"                                default="$(find cri_efe_description)/worlds/$(arg world).world"/>
+  <arg name="world_file"                                default="$(find gopigo_gazebo)/worlds/empty.world"/>
+  <!-- Path to the world file
+  <arg name="world_file"                                default="$(find ridgeback_gazebo)/worlds/scenario1.world"/>
+    -->
 
-  <!-- Set true to fix the cri_efe's main body in space -->
+
+  <!-- Set true to fix the gopigo's main body in space -->
   <arg name="fixed"                                     default="false"/>
 
   <!-- Set the initial pose of the robot's main body -->
@@ -57,14 +57,11 @@
 
   <!-- GUI ARGUMENTS -->
   <!-- Enable/disable Gazebo GUI -->
-  <arg name="run_gazebo_gui"                            default="false"/>
+  <arg name="run_gazebo_gui"                            default="true"/>
   <!-- Enable/disable rviz -->
   <arg name="run_rviz"                                  default="true"/>
   <!-- rviz configuration -->
-  <arg name="rviz_config_path"                          default="$(find cri_efe_sim)/config/rviz/cri_efe_real.rviz"/>
-  <!-- Path to the RViz world -->
-  <arg name="rviz_world_path"                           default="$(find cri_efe_gazebo)/rviz/$(arg world).yaml"/>
-
+  <arg name="rviz_config_path"                          default="$(find gopigo_football_sim)/config/rviz/gopigo.rviz"/>
 
   <!-- TF PARAMETERS -->
   <!-- tf prefix -->
@@ -73,74 +70,64 @@
   <arg name="tf_minimal"                                default="false"/>
 
 
-  <rosparam command="load"  ns="" file="$(find cri_efe_sim)/config/parameters_real.yaml"/>
+  <!-- rosparam command="load"  ns="" file="$(find gopigo_sim)/config/parameters_sim.yaml"/ -->
 
-
-
-  <!-- GAZEBO -->
-  <include file="$(find cri_efe_gazebo)/launch/gazebo.launch">
-    <arg name="use_sim_time"      value="false"/>
-    <arg name="gui"               value="$(arg run_gazebo_gui)"/>
-    <arg name="world_name"        value="$(arg world_file)"/>
-    <arg name="verbose"           value="true"/>
-    <arg name="simulation"        value="$(arg simulation)"/>
-    <arg name="robot_name"        value="$(arg robot_name)"/>
-  </include>
 
   <!-- RVIZ -->
   <group if="$(arg run_rviz)">
-    <include file="$(find cri_efe_description)/launch/rviz/rviz.launch">
+    <include file="$(find gopigo_description)/launch/rviz/rviz.launch">
       <arg name="rviz_config_path"          value="$(arg rviz_config_path)"/>
-      <arg name="rviz_world_path"           value="$(arg rviz_world_path)"/>
       <arg name="tf_minimal"                value="$(arg tf_minimal)"/>
     </include>
   </group>
 
-  <include file="$(find cri_efe_description)/launch/modules/marker_plate.launch">
-    <arg name="id" value="0"/>
-  </include>
-  <include file="$(find cri_efe_description)/launch/modules/marker_plate.launch">
-    <arg name="id" value="1"/>
-  </include>
-  <include file="$(find cri_efe_description)/launch/modules/marker_plate.launch">
-    <arg name="id" value="2"/>
-  </include>
-  <include file="$(find cri_efe_description)/launch/modules/marker_plate.launch">
-    <arg name="id" value="3"/>
-  </include>
-  <include file="$(find cri_efe_description)/launch/modules/marker_plate.launch">
-    <arg name="id" value="4"/>
-  </include>
-  <include file="$(find cri_efe_description)/launch/modules/marker_plate.launch">
-    <arg name="id" value="5"/>
+  <!-- CAMERA KINECT -->
+
+  <group unless="$(arg simulation)">
+
+      <group ns="camera_0001">\
+        <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+          <arg name="publish_tf"        default="false"/>
+          <arg name="base_name_tf"      default="camera_link"/>
+          <arg name="output"    value="log"/>
+          <arg name="fps_limit"    value="100"/>
+          <arg name="depth_method"    value="opengl"/>
+          <arg name="reg_method"    value="cpu"/>
+        </include>
+    </group>
+  </group>
+
+  <include file="$(find gopigo_description)/launch/modules/camera.launch"/>
+  <group if="$(arg simulation)">
+    <include file="$(find gopigo_description)/launch/modules/ball.launch"/>
+    <include file="$(find gopigo_description)/launch/modules/field.launch"/>
+  </group>
+
+
+  <include file="$(find gopigo_aruco)/launch/football_aruco.launch">
+    <arg name="namespace"      value="camera_0001"/>
+    <arg name="camera_name"    value="kinect2/hd"/>
+    <arg name="camera_frame"    value="camera_link_rgb_optical_frame"/>
+    <arg name="image_name" value="image_color"/>
   </include>
 
+
+
   <!-- ROBOTS -->
-  <include file="$(find cri_efe_description)/launch/gopigo.launch">
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
     <arg name="robot_namespace"    value="gopigo_0001"/>
     <arg name="simulation"    value="$(arg simulation)"/>
     <arg name="debug"         value="$(arg debug)"/>
-    <arg name="camera_name"    value="kinect2/hd"/>
-    <arg name="camera_frame"    value="camera_link_rgb_optical_frame"/>
-    <arg name="image_name"    value="image_color"/>
     <arg name="x"         value="0.0"/>
     <arg name="y"         value="0.0"/>
-    <arg name="z"         value="0.05"/>
+    <arg name="z"         value="0.1"/>
   </include>
 
-  <!-- MOTION CAPTURE
-  <include file="$(find optitrack)/launch/optitrack_pipeline.launch">
-    <arg name="iface"         value="enp0s31f6"/>
-  </include>
- -->
   <!-- TF publisher -->
-  <include file="$(find cri_efe_tf)/launch/tf_publisher.launch">
+  <include file="$(find gopigo_tf)/launch/tf_publisher.launch">
     <arg name="simulation"          value="$(arg simulation)"/>
   </include>
 
-  <!-- Rqt GuI -->
-  <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" output="screen"  args="-p cri_rqt">
-    <param name="simulation" value="$(arg simulation)"/>
-  </node>
+
 
 </launch>

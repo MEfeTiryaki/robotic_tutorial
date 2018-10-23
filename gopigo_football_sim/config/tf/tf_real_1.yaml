@@ -19,27 +19,10 @@ tf_publisher_2:
   orientation         : [0 ,0 ,0 ,1]
   source_topic        : "None"
   source_queue_size   : 0
-
 tf_publisher_3:
-  parent              : camera_link_optical
-  child               : camera_0001/camera_link_optical
+  parent              : map
+  child               : gopigo_0001/base
   position            : [0 ,0 ,0]
   orientation         : [0 ,0 ,0 ,1]
   source_topic        : "None"
   source_queue_size   : 0
-
-tf_publisher_4:
-  parent              : odom
-  child               : base
-  position            : [0 ,0 ,0]
-  orientation         : [0 ,0 ,0 ,1]
-  source_topic        : "None"
-  source_queue_size   : 0
-
-tf_publisher_5:
-  parent              : camera_link_optical
-  child               : camera_link_rgb_optical_frame
-  position            : [0 ,0 ,0]
-  orientation         : [0 ,0 ,0 ,1]
-  source_topic        : None
-  source_queue_size   : 1

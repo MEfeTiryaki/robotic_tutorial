@@ -14,12 +14,7 @@
   <arg name="urdf_description"  default="$(find gopigo_description)/urdf/gopigo.urdf.xacro"/>
 
   <!--arg name="config"            default="$(optenv RIDGEBACK_CONFIG dual_hokuyo_lasers)" /-->
-  <group if="$(arg simulation)">
-    <rosparam command="load"  ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/parameters_sim.yaml"/>
-  </group>
-  <group unless="$(arg simulation)">
-    <rosparam command="load"  ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/parameters_real.yaml"/>
-  </group>
+
   <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/publishers.yaml"/>
   <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/services.yaml"/>
   <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/subscribers.yaml"/>

@@ -7,9 +7,10 @@ import rospy
 from std_msgs.msg import Int8
 
 def move(v,w,t):
+    ns = rospy.get_namespace()
     rospy.init_node('gopigo_mover')
-    left_publisher = rospy.Publisher('/gopigo_0001/motor/pwm/left',Int8,queue_size=10)
-    right_publisher = rospy.Publisher('/gopigo_0001/motor/pwm/right',Int8,queue_size=10)
+    left_publisher = rospy.Publisher(ns+'/motor/pwm/left',Int8,queue_size=10)
+    right_publisher = rospy.Publisher(ns+'/motor/pwm/right',Int8,queue_size=10)
 
     scale = 470
     d = 0.06
