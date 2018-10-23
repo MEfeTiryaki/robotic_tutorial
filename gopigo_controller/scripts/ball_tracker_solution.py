@@ -32,8 +32,7 @@ def robotPoseCallback(msg):
 def ballPoseCallback(msg):
     ballPosition[0] = msg.pose.position.x
     ballPosition[1] = msg.pose.position.y
-
-
+    #print(ballPosition)
 def track():
     ns = rospy.get_namespace()
     rospy.init_node('ball_tracker')
@@ -47,13 +46,38 @@ def track():
 
     while not rospy.is_shutdown():
         v_l,v_r = calculateControlInput()
+        print(v_l,v_r)
         left_publisher.publish(v_l)
         right_publisher.publish(v_r)
         rate.sleep()
 
 def calculateControlInput():
-    # XXX : WRITE YOUR CONTROL LAW HERE
+    if robotPose[2]!=0 and ballPosition[1]!=0 and (not np.isnan(ballPosition[1])):
+        print(robotPose,ballPosition)
+        robotHeading = np.array([np.cos(robotPose[2]), np.sin(robotPose[2]) ])
 
+        ballToRobotVector = ballPosition-robotPose[0:2]
+        ballToRobotVectorUnit = ballToRobotVector/ np.linalg.norm(ballToRobotVector)
+        distanceProjectedToHeading = ballToRobotVector.dot(robotHeading)
+        print("ball to robot",ballToRobotVectorUnit)
+        print("distance",distanceProjectedToHeading)
+        robotToballDirection = np.arctan2(ballToRobotVectorUnit[1],ballToRobotVectorUnit[0])
+
+        deltaDirection = robotToballDirection-robotPose[2]
+        if deltaDirection<-np.pi:
+            deltaDirection = deltaDirection + 2 * np.pi
+        elif deltaDirection>np.pi:
+            deltaDirection = deltaDirection - 2 * np.pi
+        print("direction",robotToballDirection,robotPose[2],deltaDirection)
+        v = k_lin * (distanceProjectedToHeading)
+        w = k_rot * (robotToballDirection-robotPose[2])
+        print(v,w)
+    else:
+        w = 0
+        v = 0
+        print(v,w)
+
+    #v = 0
     # OpenLoop wheel speed calculation
     v_l = int(scale*(v + d*w))
     v_r = int(scale*(v - d*w))
