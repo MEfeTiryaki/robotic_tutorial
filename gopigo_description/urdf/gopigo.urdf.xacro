@@ -5,7 +5,7 @@
 <robot name="gopigo" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Arguments -->
-  <xacro:arg name="robot_name"          default="gopigo0000"/>
+  <xacro:arg name="robot_name"          default="gopigo_0000"/>
   <xacro:arg name="simulation"          default="true"/>
   <xacro:arg name="fixed"               default="false"/>
   <xacro:arg name="material_color_rgba" default="0.7 0.7 0.7 1.0"/>
@@ -13,6 +13,7 @@
 
   <!-- Component versions -->
   <xacro:property name="base_version"    value="0_0_0"/>
+  <xacro:property name="robot_name" value="$(arg robot_name)" />
 
   <!-- Includes -->
   <xacro:include filename="$(find gopigo_description)/urdf/include/gopigo_utils.urdf.xacro"/>
@@ -21,21 +22,21 @@
   <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel.urdf.xacro"/>
 
   <!-- Base -->
-  <xacro:gopigo_base name="base">
+  <xacro:gopigo_base robot_name="${robot_name}" name="base">
     <properties>
       <xacro:include filename="$(find gopigo_description)/urdf/base/${base_version}/gopigo_base_parameters.urdf.xacro"/>
     </properties>
   </xacro:gopigo_base>
 
   <!-- Left components -->
-  <xacro:wheel side="L">
+  <xacro:wheel robot_name="${robot_name}" side="L">
     <properties>
       <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel_parameters.urdf.xacro"/>
     </properties>
   </xacro:wheel>
 
   <!-- Right components -->
-  <xacro:wheel side="R">
+  <xacro:wheel robot_name="${robot_name}" side="R">
     <properties>
       <xacro:include filename="$(find gopigo_description)/urdf/wheel/wheel_parameters.urdf.xacro"/>
     </properties>

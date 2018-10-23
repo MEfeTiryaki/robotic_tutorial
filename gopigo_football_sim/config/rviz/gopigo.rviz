@@ -9,8 +9,9 @@ Panels:
         - /Camera1
         - /Camera1/Visibility1
         - /TF1/Frames1
+        - /Gopigo_00081
       Splitter Ratio: 0.5
-    Tree Height: 300
+    Tree Height: 510
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -60,47 +61,52 @@ Visualization Manager:
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
-        L_WHEEL:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         Link Tree Style: Links in Alphabetic Order
-        R_WHEEL:
+        gopigo_0001_L_WHEEL:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        base:
+        gopigo_0001_R_WHEEL:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        base_inertia:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        dummy_wheel_front:
+        gopigo_0001_base:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        marker0_background:
+        gopigo_0001_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0001_dummy_wheel_front:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        marker0_pad:
+        marker1_background:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        marker0_shape_0:
+        marker1_pad:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-      Name: RobotModel
+        marker1_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker1_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0001
       Robot Description: /gopigo_0001/robot_description
       TF Prefix: ""
       Update Interval: 0
@@ -109,7 +115,7 @@ Visualization Manager:
     - Class: rviz/Camera
       Enabled: true
       Image Rendering: overlay
-      Image Topic: /camera_0001/kinect2/hd/image_color
+      Image Topic: /camera_0001/camera/image_raw
       Name: Camera
       Overlay Alpha: 0.5
       Queue Size: 2
@@ -118,9 +124,16 @@ Visualization Manager:
       Value: true
       Visibility:
         CameraModel: false
+        Gopigo_0001: false
+        Gopigo_0002: true
+        Gopigo_0003: true
+        Gopigo_0004: true
+        Gopigo_0005: true
+        Gopigo_0006: true
+        Gopigo_0007: true
+        Gopigo_0008: true
         Grid: false
         MarkerArray: true
-        RobotModel: false
         TF: false
         Value: true
       Zoom Factor: 1
@@ -177,82 +190,415 @@ Visualization Manager:
       Queue Size: 100
       Value: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        aruco_marker_frame_0:
-          Value: true
-        aruco_marker_frame_1:
-          Value: true
-        base:
-          Value: false
-        base_inertia:
-          Value: false
-        camera_0001/camera_link_optical:
-          Value: true
-        camera_base:
-          Value: false
-        camera_base_link:
-          Value: false
-        camera_link:
-          Value: false
-        camera_link_optical:
-          Value: true
-        camera_link_rgb_optical_frame:
-          Value: true
-        dummy_wheel_front:
-          Value: false
-        map:
-          Value: false
-        marker0_background:
-          Value: false
-        marker0_pad:
-          Value: true
-        marker0_shape_0:
-          Value: false
-        odom:
-          Value: false
-        pole:
-          Value: false
-        v_pole:
-          Value: false
-        world:
-          Value: false
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          map:
-            {}
-          odom:
-            base:
-              base_inertia:
-                {}
-              dummy_wheel_front:
-                {}
-              marker0_pad:
-                marker0_background:
-                  marker0_shape_0:
-                    {}
-            camera_base:
-              camera_base_link:
-                pole:
-                  v_pole:
-                    camera_link:
-                      camera_link_optical:
-                        camera_0001/camera_link_optical:
-                          {}
-                        camera_link_rgb_optical_frame:
-                          aruco_marker_frame_0:
-                            {}
-                          aruco_marker_frame_1:
-                            {}
+        {}
+      Update Interval: 0
+      Value: false
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        gopigo_0002_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0002_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0002_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0002_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0002_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker2_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker2_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker2_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker2_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker2_shape_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0002
+      Robot Description: /gopigo_0002/robot_description
+      TF Prefix: ""
       Update Interval: 0
       Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        gopigo_0003_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0003_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0003_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0003_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0003_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker3_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker3_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker3_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker3_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0003
+      Robot Description: /gopigo_0003/robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        gopigo_0004_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0004_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0004_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0004_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0004_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker4_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker4_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker4_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker4_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0004
+      Robot Description: /gopigo_0004/robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        gopigo_0005_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0005_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0005_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0005_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0005_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker5_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker5_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker5_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker5_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0005
+      Robot Description: /gopigo_0005/robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        gopigo_0006_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0006_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0006_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0006_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0006_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker6_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker6_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker6_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker6_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker6_shape_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker6_shape_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0006
+      Robot Description: /gopigo_0006/robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        gopigo_0007_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0007_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0007_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0007_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0007_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker7_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker7_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker7_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker7_shape_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker7_shape_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: Gopigo_0007
+      Robot Description: /gopigo_0007/robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+      Name: Gopigo_0008
+      Robot Description: /gopigo_0008/robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -278,7 +624,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.50615668
+      Distance: 3.3937149
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -293,20 +639,20 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.709796607
+      Pitch: 0.419795662
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.14039814
+      Yaw: 2.72040534
     Saved: ~
 Window Geometry:
   Camera:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 909
+  Height: 1381
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000002360000032bfc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb000000100044006900730070006c00610079007301000000000000016d000000d700fffffffb0000000c00430061006d0065007200610100000173000001b80000001600ffffff000000010000010f000004d6fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000002b000004d6000000ad00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005950000003efc0100000002fb0000000800540069006d00650100000000000005950000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000003590000032b00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000023600000501fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006200fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb000000100044006900730070006c006100790073010000000000000242000000da00fffffffb0000000c00430061006d0065007200610100000248000002b90000001700ffffff000000010000010f000004d6fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000002b000004d6000000b200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000063a0000003efc0100000002fb0000000800540069006d006501000000000000063a0000035200fffffffb0000000800540069006d00650100000000000004500000000000000000000003fe0000050100000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -315,6 +661,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1429
-  X: 1582
-  Y: 466
+  Width: 1594
+  X: 1322
+  Y: 27

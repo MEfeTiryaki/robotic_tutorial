@@ -13,7 +13,7 @@
 
     <!-- SPAWNER-->
     <node name="spawner_ball" pkg="gazebo_ros" type="spawn_model" respawn="false"
-       args="-urdf -model $(arg namespace) -param ball_description -x 0.5 -y 0 -z 0.06" />
+       args="-urdf -model $(arg namespace) -param ball_description -x 0.6 -y 0 -z 0.06" />
 
   </group>
 

@@ -2,9 +2,16 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_0.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_1.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_2.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_3.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_4.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_5.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_6.urdf.xacro"/>
+  <xacro:include filename="$(find gopigo_description)/urdf/single_markers/marker_7.urdf.xacro"/>
 
   <!-- Base -->
-  <xacro:macro name="gopigo_base"  params="name **properties">
+  <xacro:macro name="gopigo_base"  params="name robot_name **properties">
 
     <!-- Xacro:Properties-->
     <xacro:insert_block name="properties"/>
@@ -13,15 +20,15 @@
     <!-- Attach the robot to the world link if requested -->
     <xacro:if value="$(arg fixed)">
       <gazebo>
-        <joint name="world_joint" type="fixed">
-          <parent>${name}</parent>
+        <joint name="${robot_name}_world_joint" type="fixed">
+          <parent>${robot_name}_${name}</parent>
           <child>world</child>
         </joint>
       </gazebo>
     </xacro:if>
 
     <!-- Base link -->
-    <link name="${name}">
+    <link name="${robot_name}_${name}">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -37,12 +44,12 @@
       </collision>
     </link>
 
-    <joint name="${name}_to_dummy_wheel_front" type="fixed">
-      <parent link="${name}"/>
-      <child link="dummy_wheel_front"/>
+    <joint name="${robot_name}_${name}_to_dummy_wheel_front" type="fixed">
+      <parent link="${robot_name}_${name}"/>
+      <child link="${robot_name}_dummy_wheel_front"/>
       <origin xyz="0.10 0 -0.05" rpy="0 0 0"/>
     </joint>
-    <link name="dummy_wheel_front">
+    <link name="${robot_name}_dummy_wheel_front">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -57,7 +64,7 @@
         </geometry>
       </collision>
     </link>
-    <gazebo reference="dummy_wheel_front" >
+    <gazebo reference="${robot_name}_dummy_wheel_front" >
     	<kp>1000000.0</kp>
         <kd>100.0</kd>
         <mu1>0.0</mu1>
@@ -70,14 +77,14 @@
 
 
     <!-- Fixed joint to add dummy inertia link -->
-    <joint name="${name}_to_${name}_inertia" type="fixed">
-      <parent link="${name}"/>
-      <child link="${name}_inertia"/>
+    <joint name="${robot_name}_${name}_to_${name}_inertia" type="fixed">
+      <parent link="${robot_name}_${name}"/>
+      <child link="${robot_name}_${name}_inertia"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
     <!-- Dummy inertia link, because KDL cannot have inertia on the base link -->
-    <link name="${name}_inertia">
+    <link name="${robot_name}_${name}_inertia">
       <inertial>
         <origin   xyz="0 0 0"
                   rpy="0 0 0"/>
@@ -87,7 +94,32 @@
       </inertial>
     </link>
 
-    <xacro:marker_0 name="marker0" pad_base="base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    <xacro:if value="${robot_name.endswith('0000')}">
+      <xacro:marker_0 name="marker0" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0001')}">
+      <xacro:marker_1 name="marker1" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0002')}">
+      <xacro:marker_2 name="marker2" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0003')}">
+      <xacro:marker_3 name="marker3" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0004')}">
+      <xacro:marker_4 name="marker4" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0005')}">
+      <xacro:marker_5 name="marker5" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0006')}">
+      <xacro:marker_6 name="marker6" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+    <xacro:if value="${robot_name.endswith('0007')}">
+      <xacro:marker_7 name="marker7" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+    </xacro:if>
+
+
 
   </xacro:macro>
 

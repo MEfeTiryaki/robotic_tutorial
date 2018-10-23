@@ -109,6 +109,7 @@
     <arg name="camera_name"    value="kinect2/hd"/>
     <arg name="camera_frame"    value="camera_link_rgb_optical_frame"/>
     <arg name="image_name" value="image_color"/>
+    <arg name="simulation"          value="$(arg simulation)"/>
   </include>
 
 

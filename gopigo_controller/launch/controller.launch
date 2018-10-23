@@ -1,0 +1,20 @@
+<launch>
+  <arg name="robot_namespace"   default="gopigo_0000"/>
+  <arg name="simulation"        default="true"/>
+  <arg name="debug"             default="true"/>
+
+  <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/publishers.yaml"/>
+  <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/services.yaml"/>
+  <rosparam command="load" ns="$(arg robot_namespace)" file="$(find gopigo_sim)/config/gopigo/subscribers.yaml"/>
+
+
+  <group ns="$(arg robot_namespace)">
+
+    <!-- Gopigo State Publisher -->
+    <node name="gopigo_state_publisher" pkg="gopigo_controller" type="estimator.py" output="screen">
+    </node>
+
+  </group>
+
+
+</launch>

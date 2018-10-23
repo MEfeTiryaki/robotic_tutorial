@@ -65,6 +65,8 @@ multi_boards:
     color_g  : [0.0]
     color_b  : [0.0 ]
 
-threshold_min: [0,0,100]
-threshold_max: [10,10,255]
+#threshold_min: [0,0,100]
+#threshold_max: [10,10,255]
+threshold_min: [0,0,0]
+threshold_max: [25,140,255]
 image_to_real_mapping: [550,550]

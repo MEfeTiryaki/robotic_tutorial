@@ -1,5 +1,6 @@
 <launch>
     <arg name="namespace"         default="camera_0001"/>
+    <arg name="simulation"         default="true"/>
     <arg name="camera_name"       default="camera_0"/>
     <arg name="camera_frame"      default="camera_0_camera_link_optical"/>
     <arg name="image_name"        default="image_raw"/>
@@ -8,7 +9,13 @@
     <arg name="corner_refinement" default="LINES" /> <!-- NONE, HARRIS, LINES, SUBPIX -->
 
 
-    <rosparam command="load" ns="aruco_multi" file="$(find gopigo_aruco)/config/any_multi_marker/parameters_sim.yaml"/>
+    <group if="$(arg simulation)">
+      <rosparam command="load" ns="aruco_multi" file="$(find gopigo_aruco)/config/any_multi_marker/parameters_sim.yaml"/>
+    </group>
+    <group unless="$(arg simulation)">
+      <rosparam command="load" ns="aruco_multi" file="$(find gopigo_aruco)/config/any_multi_marker/parameters_real.yaml"/>
+    </group>
+
 
     <node pkg="aruco_ros" type="aruco_football" name="aruco_football_node" output="screen">
         <remap from="/camera_info" to="/$(arg namespace)/$(arg camera_name)/camera_info" />

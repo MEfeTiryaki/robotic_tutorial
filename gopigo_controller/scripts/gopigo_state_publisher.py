@@ -35,6 +35,7 @@ class GopigoStatePublisher(RosExecuterNodeBase):
         self.pos = np.array([0.0,0.0,0.0])
         self.euler =  np.array([0.0,0.0,0.0])
         self.rot =  np.array([1.0,0.0,0.0,0.0])
+
     def initilize(self):
         self.getTransforms()
 
@@ -42,7 +43,7 @@ class GopigoStatePublisher(RosExecuterNodeBase):
         self.poseStatePublisher_ =  rospy.Publisher(self.ns_+'pose',PoseStamped,queue_size=10)
 
     def initilizeSubscribers(self):
-        rospy.Subscriber("/aruco_football_node/pose_2", PoseStamped, callback =self.poseCallback)
+        rospy.Subscriber("/aruco_football_node/pose_"+self.ns_[-2], PoseStamped, callback =self.poseCallback)
 
     def getTransforms(self):
         isTry = True
@@ -67,26 +68,6 @@ class GopigoStatePublisher(RosExecuterNodeBase):
             self.cameraOrientationToOdom = np.array([1.0,0.0,0.0,0.0])
         self.T_OC = tr.quaternion_matrix(self.cameraOrientationToOdom)
         self.T_OC[0:3,3] = self.cameraPositionToOdom
-        isTry = True
-        trial = 0
-        while isTry :
-            try:
-                #(trans,rot) = self.listener.lookupTransform('mobile_printer_0001_base_link', 'mobile_printer_0001_camera_link_optical', rospy.Time(0))
-                self.listener.waitForTransform('/world','/camera_link_optical',rospy.Time(), rospy.Duration(4.0))
-                (trans,rot) = self.listener.lookupTransform('/world','/camera_link_optical', rospy.Time(0))
-                isTry = False
-            except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-                pass
-            trial += 1
-            if trial> 5:
-                print("Couldnt find camera")
-                break
-        if trial < 5:
-            self.cameraPositionToOdom = trans
-            self.cameraOrientationToOdom = rot
-        else :
-            self.cameraPositionToOdom = np.array([0.0,0.0,0.0])
-            self.cameraOrientationToOdom = np.array([1.0,0.0,0.0,0.0])
 
     def poseCallback(self,msg):
         # TODO : Build the tranform T_CM from camera_link_optical to marker using

@@ -113,9 +113,19 @@
     <arg name="camera_name"      value="camera"/>
     <arg name="camera_frame"     value="camera_link_optical"/>
     <arg name="image_name"       value="image_raw"/>
+    <arg name="simulation"          value="$(arg simulation)"/>
   </include>
 
   <!-- ROBOTS -->
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0000"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="-0.4"/>
+    <arg name="y"         value="0.0"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+  <!--
   <include file="$(find gopigo_description)/launch/gopigo.launch">
     <arg name="robot_namespace"    value="gopigo_0001"/>
     <arg name="simulation"    value="$(arg simulation)"/>
@@ -124,7 +134,55 @@
     <arg name="y"         value="0.0"/>
     <arg name="z"         value="0.1"/>
   </include>
-
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0002"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="0.4"/>
+    <arg name="y"         value="0.0"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0003"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="-0.4"/>
+    <arg name="y"         value="-0.4"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0004"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="0.0"/>
+    <arg name="y"         value="-0.4"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0005"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="0.4"/>
+    <arg name="y"         value="-0.4"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0006"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="-0.4"/>
+    <arg name="y"         value="0.4"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+  <include file="$(find gopigo_description)/launch/gopigo.launch">
+    <arg name="robot_namespace"    value="gopigo_0007"/>
+    <arg name="simulation"    value="$(arg simulation)"/>
+    <arg name="debug"         value="$(arg debug)"/>
+    <arg name="x"         value="0.0"/>
+    <arg name="y"         value="0.4"/>
+    <arg name="z"         value="0.1"/>
+  </include>
+-->
   <!-- TF publisher -->
   <include file="$(find gopigo_tf)/launch/tf_publisher.launch">
     <arg name="simulation"          value="$(arg simulation)"/>
