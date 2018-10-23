@@ -115,7 +115,7 @@
 
   <!-- ROBOTS -->
   <include file="$(find gopigo_description)/launch/gopigo.launch">
-    <arg name="robot_namespace"    value="gopigo_0001"/>
+    <arg name="robot_namespace"    value="gopigo_0003"/>
     <arg name="simulation"    value="$(arg simulation)"/>
     <arg name="debug"         value="$(arg debug)"/>
     <arg name="x"         value="0.0"/>

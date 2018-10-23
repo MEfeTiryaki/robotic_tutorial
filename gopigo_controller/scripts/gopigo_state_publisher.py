@@ -39,11 +39,10 @@ class GopigoStatePublisher(RosExecuterNodeBase):
         self.getTransforms()
 
     def initilizePublishers(self):
-        self.poseStatePublisher_ =  rospy.Publisher(self.ns_+'/pose',PoseStamped,queue_size=10)
+        self.poseStatePublisher_ =  rospy.Publisher(self.ns_+'pose',PoseStamped,queue_size=10)
 
     def initilizeSubscribers(self):
-        rospy.Subscriber("/aruco_football_node/pose_0", PoseStamped, callback =self.poseCallback)
-        print("AA")
+        rospy.Subscriber("/aruco_football_node/pose_2", PoseStamped, callback =self.poseCallback)
 
     def getTransforms(self):
         isTry = True

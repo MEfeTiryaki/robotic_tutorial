@@ -33,7 +33,7 @@ tf_publisher_4:
   child               : base
   position            : [0 ,0 ,0]
   orientation         : [0 ,0 ,0 ,1]
-  source_topic        : "None"
+  source_topic        : "/aruco_football_node/pose_2"
   source_queue_size   : 0
 
 tf_publisher_5:
