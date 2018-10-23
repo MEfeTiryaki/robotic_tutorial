@@ -30,24 +30,24 @@ tf_publisher_3:
 
 tf_publisher_4:
   parent              : odom
+  child               : gopigo_0000_base
+  position            : [0 ,0 ,0]
+  orientation         : [0 ,0 ,0 ,1]
+  source_topic        : /gopigo_0000/pose
+  source_queue_size   : 0
+tf_publisher_5:
+  parent              : odom
   child               : gopigo_0001_base
   position            : [0 ,0 ,0]
   orientation         : [0 ,0 ,0 ,1]
-  source_topic        : /gopigo_0001/pose
+  source_topic        : /gopigo_000/pose
   source_queue_size   : 0
-tf_publisher_5:
+tf_publisher_6:
   parent              : odom
   child               : gopigo_0002_base
   position            : [0 ,0 ,0]
   orientation         : [0 ,0 ,0 ,1]
   source_topic        : /gopigo_0002/pose
-  source_queue_size   : 0
-tf_publisher_6:
-  parent              : odom
-  child               : gopigo_0003_base
-  position            : [0 ,0 ,0]
-  orientation         : [0 ,0 ,0 ,1]
-  source_topic        : /gopigo_0003/pose
   source_queue_size   : 0
 tf_publisher_7:
   parent              : odom
@@ -85,14 +85,6 @@ tf_publisher_11:
   source_topic        : /gopigo_0007/pose
   source_queue_size   : 0
 tf_publisher_12:
-  parent              : odom
-  child               : gopigo_0008_base
-  position            : [0 ,0 ,0]
-  orientation         : [0 ,0 ,0 ,1]
-  source_topic        : /gopigo_0008/pose
-  source_queue_size   : 0
-
-tf_publisher_13:
   parent              : camera_link_optical
   child               : camera_link_rgb_optical_frame
   position            : [0 ,0 ,0]

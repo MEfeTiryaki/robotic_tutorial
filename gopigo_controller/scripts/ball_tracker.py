@@ -3,7 +3,7 @@
 
 import sys
 import rospy
-
+import math
 import numpy as np
 from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import Int8
@@ -17,8 +17,8 @@ robotState = False
 ballState = False
 scale = 470
 d = 0.06
-k_rot = 0.1
-k_lin = 0.1
+k_rot = 2
+k_lin = 0.5
 
 def robotPoseCallback(msg):
     robotPose[0] = msg.pose.position.x
@@ -27,7 +27,7 @@ def robotPoseCallback(msg):
                  ,msg.pose.orientation.y
                  ,msg.pose.orientation.z
                  ,msg.pose.orientation.w]
-    robotPose[2] = tr.euler_from_quaternion(quaternion)[2]
+    robotPose[2] = -tr.euler_from_quaternion(quaternion)[2]
 
 def ballPoseCallback(msg):
     ballPosition[0] = msg.pose.position.x
@@ -40,22 +40,24 @@ def track():
     right_publisher = rospy.Publisher(ns+'motor/pwm/right',Int8,queue_size=10)
 
     robotPoseSubscriber = rospy.Subscriber(ns+"pose", PoseStamped, robotPoseCallback)
-    ballPoseSubscriber = rospy.Subscriber("/aruco_football_node/pose_"+ns[-2], PoseStamped, ballPoseCallback)
+    ballPoseSubscriber = rospy.Subscriber("/aruco_football_node/pose_ball", PoseStamped, ballPoseCallback)
     #rospy.Subscriber("message", Float64, callback)
     rate = rospy.Rate(100)
 
     while not rospy.is_shutdown():
         v_l,v_r = calculateControlInput()
+        print(v_l,v_r)
         left_publisher.publish(v_l)
         right_publisher.publish(v_r)
         rate.sleep()
 
 def calculateControlInput():
-    if robotPose[2]!=0 and ballPosition[1]!=0:
+    if robotPose[2]!=0 and ballPosition[1]!=0 and (not np.isnan(ballPosition[1])):
         print(robotPose,ballPosition)
         robotHeading = np.array([np.cos(robotPose[2]), np.sin(robotPose[2]) ])
+
         ballToRobotVector = ballPosition-robotPose[0:2]
-        ballToRobotVectorUnit = ballPosition/ np.linalg.norm(ballPosition)
+        ballToRobotVectorUnit = ballToRobotVector/ np.linalg.norm(ballToRobotVector)
         distanceProjectedToHeading = ballToRobotVector.dot(robotHeading)
         print("ball to robot",ballToRobotVectorUnit)
         print("distance",distanceProjectedToHeading)
@@ -71,29 +73,34 @@ def calculateControlInput():
         w = k_rot * (robotToballDirection-robotPose[2])
         print(v,w)
     else:
-        v = 0
         w = 0
+        v = 0
+        print(v,w)
+
+    v = 0
     # OpenLoop wheel speed calculation
     v_l = int(scale*(v + d*w))
     v_r = int(scale*(v - d*w))
     #print(v_l,v_r)
-    if v_l>127:
-        v_l = 127
+    max_vel = 120
+    if v_l>max_vel:
+        v_l = max_vel
         print("v_l_max : " + str(v_l))
-    elif v_l<-127:
-        v_l = -127
+    elif v_l<-max_vel:
+        v_l = -max_vel
         print("v_l_min : " + str(v_l))
     else:
         print("v_l : " + str(v_l))
 
-    if v_r>127:
-        v_r = 127
+    if v_r>max_vel:
+        v_r = max_vel
         print("v_r_max : " + str(v_r))
-    elif v_r<-127:
-        v_r = -127
+    elif v_r<-max_vel:
+        v_r = -max_vel
         print("v_r_min : " + str(v_r))
     else:
         print("v_r : " + str(v_r))
+
 
     return v_l,v_r
 
