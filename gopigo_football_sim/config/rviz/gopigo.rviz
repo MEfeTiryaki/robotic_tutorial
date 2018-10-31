@@ -6,12 +6,13 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Gopigo_00011
         - /Camera1
         - /Camera1/Visibility1
         - /TF1/Frames1
         - /Gopigo_00081
       Splitter Ratio: 0.5
-    Tree Height: 514
+    Tree Height: 347
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -30,7 +31,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Camera
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -62,8 +63,47 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        gopigo_0000_L_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0000_R_WHEEL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0000_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopigo_0000_base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopigo_0000_dummy_wheel_front:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker0_background:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker0_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        marker0_shape_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: Gopigo_0001
-      Robot Description: /gopigo_0001/robot_description
+      Robot Description: /gopigo_0000/robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -185,50 +225,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        gopigo_0003_L_WHEEL:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        gopigo_0003_R_WHEEL:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        gopigo_0003_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        gopigo_0003_base_inertia:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        gopigo_0003_dummy_wheel_front:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        marker3_background:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        marker3_pad:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        marker3_shape_0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        marker3_shape_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: Gopigo_0003
       Robot Description: /gopigo_0003/robot_description
       TF Prefix: ""
@@ -358,17 +354,17 @@ Visualization Manager:
       Pitch: 1.25979543
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.8254056
+      Yaw: 2.82040548
     Saved: ~
 Window Geometry:
   Camera:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 1381
+  Height: 1021
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000023600000503fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb000000100044006900730070006c006100790073010000000000000243000000d700fffffffb0000000c00430061006d0065007200610100000249000002ba0000001600ffffff000000010000010f000004d6fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000002b000004d6000000ad00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000063a0000003efc0100000002fb0000000800540069006d006501000000000000063a0000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000003fe0000050300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000023600000399fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006200fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb000000100044006900730070006c00610079007301000000000000019f000000da00fffffffb0000000c00430061006d00650072006101000001a5000001f40000001700ffffff000000010000010f000004d6fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000002b000004d6000000b200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000063a0000003efc0100000002fb0000000800540069006d006501000000000000063a0000035200fffffffb0000000800540069006d00650100000000000004500000000000000000000003fe0000039900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -378,5 +374,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1594
-  X: 966
+  X: 477
   Y: 27

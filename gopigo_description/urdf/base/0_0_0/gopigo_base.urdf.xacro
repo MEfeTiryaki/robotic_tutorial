@@ -95,7 +95,7 @@
     </link>
 
     <xacro:if value="${robot_name.endswith('0000')}">
-      <xacro:marker_0 name="marker0" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
+      <xacro:marker_0 name="marker0" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 3.14" scale="1.5"/>
     </xacro:if>
     <xacro:if value="${robot_name.endswith('0001')}">
       <xacro:marker_1 name="marker1" pad_base="${robot_name}_base" marker_pos="0 0 ${H/2}" marker_ori="0 0 0" scale="1.5"/>
