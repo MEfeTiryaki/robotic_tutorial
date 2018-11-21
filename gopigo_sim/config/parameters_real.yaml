@@ -1,4 +1,0 @@
-robot_1:
-  name                : gopigo_0001
-  initial_estimation    : [0.0 , 0.0 ,0.0, 0.0]
-  #initial_orientation : [0.0 , 0.0 ,0.0, 1.0]
